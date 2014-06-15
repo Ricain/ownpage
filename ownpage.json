@@ -10,8 +10,8 @@
 		"YouTube"   : ["https://www.youtube.com/","#c73535"]
 	},
 	{
-		"Cours Infos"        : ["http://cours-info.iut-bm.univ-fcomte.fr/","#db9456"],
-		"185.13.37.145"      : ["http://185.13.37.145/","#b23f82"],
-		"Societege Generale" : ["https://particuliers.societegenerale.fr/","#42b13e"]
+		"Cours Infos"      : ["http://cours-info.iut-bm.univ-fcomte.fr/","#db9456"],
+		"185.13.37.145"    : ["http://185.13.37.145/","#b23f82"],
+		"Société Générale" : ["https://particuliers.societegenerale.fr/","#42b13e"]
 	}
 ]

@@ -1,5 +1,14 @@
+/**
+* Ownpage
+* by Jean Mercadier - http://jmercadier.fr/
+*
+* @license http://creativecommons.org/licenses/by/2.5/
+* - Free for use in both personal and commercial projects
+* - Attribution requires leaving author name, author link, and the license info intact
+*/
+
 $(document).ready(function() {
-	$.getJSON("homepage.json",function($pages){
+	$.getJSON("ownpage.json",function($pages){
 		$("#marquespages").empty();
 		$.each($pages,function($i,$range){
 			$ligne = $("<tr></tr>");
