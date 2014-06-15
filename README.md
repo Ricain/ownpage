@@ -1,6 +1,6 @@
 # Ownpage
 
-Alternative to the homepage of your browser and the new tab page.
+Alternative to home page and new tab page of your browser.
 
 ![example](example.png)
 
