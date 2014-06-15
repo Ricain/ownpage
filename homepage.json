@@ -1,0 +1,17 @@
+[
+	{
+		"Google"   : ["https://www.google.com/","#3b97e8"],
+		"GitHub"   : ["https://github.com/", "#d4a20c"],
+		"Facebook" : ["https://www.facebook.com/", "#006699"]
+	},
+	{
+		"localhost" : ["http://localhost/","#843fb2"],
+		"Selfoss"   : ["https://185.13.37.145/selfoss/","#44b198"],
+		"YouTube"   : ["https://www.youtube.com/","#c73535"]
+	},
+	{
+		"Cours Infos"        : ["http://cours-info.iut-bm.univ-fcomte.fr/","#db9456"],
+		"185.13.37.145"      : ["http://185.13.37.145/","#b23f82"],
+		"Societege Generale" : ["https://particuliers.societegenerale.fr/","#42b13e"]
+	}
+]

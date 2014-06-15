@@ -6,9 +6,16 @@ body {
 }
 
 body {
-    font-family: "Droid Sans Mono" ,"Lucida Console";
+	font-family: "Droid Sans Mono" ,"Lucida Console";
 	text-shadow: 1px 1px 4px rgb(51, 51, 51);
-    background-color: rgb(239,239,239);
+	background-color: rgb(239,239,239);
+}
+
+div#settings {
+	display: block;
+	position: fixed;
+	top: 20px;
+	right: 20px;
 }
 
 div#center {
@@ -25,23 +32,24 @@ div#center {
 table {
 	width: 100%;
 	height: 100%;
-    border-collapse:separate;
-    border-spacing: 40px;
+	border-collapse:separate;
+	border-spacing: 40px;
 }
 
 table td {
-    width: 33%;
-    height: 33%;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0px 0px 3px #888888;
-    cursor: pointer;
-    transition: padding-bottom .5s;
+	width: 33%;
+	height: 33%;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0px 0px 3px #888888;
+	cursor: pointer;
+	transition: padding-bottom .5s;
+	background-color: gray;
 }
 
 
 table td:hover {
-    padding-bottom: 20px;
+	padding-bottom: 20px;
 }
