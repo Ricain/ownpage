@@ -5,6 +5,8 @@
 	src: local('Droid Sans Mono'), local('DroidSansMono'), url(droidsansmono.woff) format('woff');
 }
 
+/* MAIN VIEW */
+
 html,
 body {
 	padding: 0;
@@ -59,4 +61,17 @@ table td {
 
 table td:hover {
 	padding-bottom: 20px;
+}
+
+/* EDIT BUTTON */
+
+div#edit {
+	display: block;
+	position: fixed;
+	cursor: pointer;
+	bottom: 20px;
+	right: 30px;
+	font-size: .9em;
+	text-shadow: none;
+	color: gray;
 }

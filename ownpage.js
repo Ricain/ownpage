@@ -8,6 +8,7 @@
 */
 
 $(document).ready(function() {
+	$editing = false;
 	$.getJSON("ownpage.json",function($pages){
 		$("#marquespages").empty();
 		$.each($pages,function($i,$range){
@@ -22,5 +23,17 @@ $(document).ready(function() {
 			});
 			$ligne.appendTo("#marquespages");
 		});
+		$edit = $("<div id='edit'>EDIT</div>");
+		$edit.click(function(){
+			if($editing){
+				$editing = false;
+				$edit.html("EDIT");
+			}
+			else {
+				$editing = true;
+				$edit.html("DONE");
+			}
+		});
+		$edit.appendTo("body");
 	});
 });
