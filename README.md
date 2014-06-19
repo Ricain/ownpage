@@ -15,8 +15,8 @@ Open `index.html` with your favorite browser and make it your homepage.
 
 In order to use a custom page for new tabpage, use:
 
-	- Mozilla Firefox: [New Tab Homepage add-ons](https://addons.mozilla.org/en-US/firefox/addon/new-tab-homepage/)
-	- Google Chrome: [New Tab Redirect add-ons](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
+- Mozilla Firefox: [New Tab Homepage add-ons](https://addons.mozilla.org/en-US/firefox/addon/new-tab-homepage/)
+- Google Chrome: [New Tab Redirect add-ons](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
 
 #####Used scripts:
 
