@@ -47,14 +47,14 @@ div#center {
 	margin: auto;
 }
 
-table {
+table#marquespages {
 	width: 100%;
 	height: 100%;
 	border-collapse:separate;
 	border-spacing: 40px;
 }
 
-table td {
+table#marquespages td {
 	width: 33%;
 	height: 33%;
 	color: white;
@@ -67,8 +67,7 @@ table td {
 	background-color: gray;
 }
 
-
-table td:hover {
+table#marquespages td:hover {
 	padding-bottom: 20px;
 }
 
