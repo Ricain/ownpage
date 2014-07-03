@@ -46,7 +46,6 @@
 				$j = 0;
 				$.each($range,function($nom,$cont){
 					$cell  = $("<td id='e" + $i + $j + "'></td>");
-					$cell.css({ "background-color": $cont[1] });
 					$cell.appendTo($ligne);
 					$inom  = $("<input type='text' value='" + $nom + "' />");
 					$inom.change(function(){

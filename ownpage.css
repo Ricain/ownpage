@@ -47,21 +47,29 @@ div#center {
 	margin: auto;
 }
 
-table#marquespages {
+table {
 	width: 100%;
 	height: 100%;
 	border-collapse:separate;
 	border-spacing: 40px;
 }
 
-table#marquespages td {
+table td {
 	width: 33%;
 	height: 33%;
-	color: white;
 	padding: 10px;
 	text-align: center;
 	border-radius: 10px;
 	box-shadow: 0px 0px 3px #888888;
+}
+
+/* MAIN VIEW */
+
+table#marquespages {
+}
+
+table#marquespages td {
+	color: white;
 	cursor: pointer;
 	transition: padding-bottom .5s;
 	background-color: gray;
@@ -69,6 +77,19 @@ table#marquespages td {
 
 table#marquespages td:hover {
 	padding-bottom: 20px;
+}
+
+/* EDIT VIEW */
+
+table#edition td {
+	background-color: white;
+	border: 3px dashed #3a3a3a,
+	color: #3a3a3a;
+}
+
+table#edition td input {
+	border: 0;
+	text-align: center;
 }
 
 /* EDIT BUTTON */
