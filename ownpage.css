@@ -85,11 +85,23 @@ table#edition td {
 	background-color: white;
 	border: 3px dashed #3a3a3a,
 	color: #3a3a3a;
+	padding: 0;
 }
 
 table#edition td input {
 	border: 0;
+	padding: 0;
+	margin: 0;
 	text-align: center;
+	width: 99%;
+}
+
+table#edition td .color-box {
+	display: inline-block;
+	width:30px;
+	height:30px;
+	margin:5px;
+	border-radius: 3px;
 }
 
 /* EDIT BUTTON */

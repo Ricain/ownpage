@@ -47,16 +47,27 @@
 				$.each($range,function($nom,$cont){
 					$cell  = $("<td id='e" + $i + $j + "'></td>");
 					$cell.appendTo($ligne);
-					$inom  = $("<input type='text' value='" + $nom + "' />");
+					$inom  = $("<input type='text' placeholder='Name' value='" + $nom + "' />");
 					$inom.change(function(){
 						alert("coucou");
 					});
 					$inom.appendTo($cell);
-					$ihref = $("<input type='text' value='" + $cont[0] + "' />");
+					$ihref = $("<input type='text' placeholder='URL' value='" + $cont[0] + "' />");
 					$ihref.change(function(){
 						alert("coucou");
 					});
 					$ihref.appendTo($cell);
+					$colpick = $("<div class='color-box'></div>");
+					$colpick.colpick({
+						colorScheme:'dark',
+						layout:'rgbhex',
+						color: $cont[1],
+						onSubmit:function(hsb,hex,rgb,el) {
+							$(el).css('background-color', '#'+hex);
+							$(el).colpickHide();
+						}
+					}).css('background-color', $cont[1]);
+					$colpick.appendTo($cell);
 					$j += 1;
 				});
 				$ligne.appendTo("#edition");
