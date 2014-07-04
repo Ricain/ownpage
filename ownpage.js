@@ -14,9 +14,7 @@ $(document).ready(function () {
 		}
 		$(location).attr('hash',"")
 	}
-
 	var draw, edit, urls;
-
 	try {
 		if(!('localStorage' in window && window['localStorage'] !== null)){
 			alert("Your browser does not support local storage (HTML5). :(");
@@ -35,7 +33,6 @@ $(document).ready(function () {
 			localStorage.setItem("urls", JSON.stringify($content["urls"]));
 		});
 	}
-
 	draw = (function () {
 		$("#edition").hide();
 		$("#marquespages").empty();
@@ -59,26 +56,32 @@ $(document).ready(function () {
 			edit.call(this);
 		});
 	});
-
 	edit = (function () {
 		$("#marquespages").hide();
 		$("#edition").empty();
 		$("#edition").show();
 		$.each(urls,function($row,$range){
-			$ligne = $("<tr></tr>");
-			$col = 0;
+			$ligne    = $("<tr></tr>");
+			$col      = 0;
+			$inputnom = [[],[],[]];
+			$inputurl = [[],[],[]];
 			$.each($range,function($nom,$cont){
 				$cell  = $("<td id='e" + $row + $col + "'></td>");
 				$cell.appendTo($ligne);
 				$inom  = $("<input type='text' placeholder='Name' value='" + $nom + "' />");
+				$inputnom[$row][$col] = $inom;
 				$inom.change(function(){
-					$old = urls[$row][$nom];
-					alert($old.ID);
+					surls = JSON.stringify(urls);
+					surls = surls.replace("\"" + $nom + "\":", "\"" + $(this).val() + "\":");
+					urls  = JSON.parse(surls);
+					localStorage.setItem("urls",surls);
 				});
 				$inom.appendTo($cell);
 				$ihref = $("<input type='text' placeholder='URL' value='" + $cont[0] + "' />");
+				$inputurl[$row][$col] = $ihref;
 				$ihref.change(function(){
-					alert("coucou");
+					urls[$row][$nom][0] = $(this).val();
+					localStorage.setItem("urls",JSON.stringify(urls));
 				});
 				$ihref.appendTo($cell);
 				$colpick = $("<div class='color-box'></div>");
@@ -89,6 +92,8 @@ $(document).ready(function () {
 					onSubmit:function(hsb,hex,rgb,el) {
 						$(el).css('background-color', '#'+hex);
 						$(el).colpickHide();
+						urls[$row][$nom][1] = '#'+hex;
+						localStorage.setItem("urls",JSON.stringify(urls));
 					}
 				}).css('background-color', $cont[1]);
 				$colpick.appendTo($cell);
@@ -101,6 +106,5 @@ $(document).ready(function () {
 			draw.call(this);
 		});
 	});
-
 	draw.call(this);
 }).call(this);

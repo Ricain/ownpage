@@ -38,6 +38,7 @@ a#ownpage {
 	text-transform: uppercase;
 	text-decoration: none;
 	color: gray;
+	letter-spacing: 3px;
 }
 
 div#settings {
@@ -129,4 +130,5 @@ div#edit {
 	font-size: .8em;
 	text-shadow: none;
 	color: gray;
+	letter-spacing: 3px;
 }
