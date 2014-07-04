@@ -20,7 +20,7 @@ In order to use a custom page for new tabpage, use:
 
 #####Used scripts:
 
-[Colpick](http://colpick.com) (GNU)
+[Colpick](http://colpick.com) (license GNU)
 
 #####License:
 

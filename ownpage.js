@@ -8,13 +8,6 @@
 */
 
 $(document).ready(function () {
-	if($(location).attr('hash') == "#clear"){
-		if(confirm("Are you sure to erase your local data?\nSaves will be lost.")){
-			localStorage.clear();
-		}
-		$(location).attr('hash',"")
-	}
-	var draw, edit, urls;
 	try {
 		if(!('localStorage' in window && window['localStorage'] !== null)){
 			alert("Your browser does not support local storage (HTML5). :(");
@@ -24,11 +17,18 @@ $(document).ready(function () {
 		alert("Your browser does not support local storage (HTML5). :(");
 		return;
 	}
+	if($(location).attr('hash') == "#clear"){
+		if(confirm("Are you sure to erase your local data?\nSaves will be lost.\n(You need internet for this)")){
+			localStorage.clear();
+		}
+		$(location).attr('hash',"")
+	}
+	var draw, edit, urls;
 	if(localStorage.getItem("urls")){
 		urls = JSON.parse(localStorage.getItem("urls"));
 	}
 	else {
-		$.getJSON("ownpage.json",function($content){
+		$.getJSON("https://raw.githubusercontent.com/Ricain/ownpage/master/ownpage.json",function($content){
 			urls = $content["urls"];
 			localStorage.setItem("urls", JSON.stringify($content["urls"]));
 		});
@@ -107,4 +107,4 @@ $(document).ready(function () {
 		});
 	});
 	draw.call(this);
-}).call(this);
+});

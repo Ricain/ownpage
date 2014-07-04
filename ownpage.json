@@ -20,7 +20,7 @@
 				"#843fb2"
 			],
 			"Selfoss": [
-				"https://185.13.37.145/selfoss/",
+				"http://selfoss.aditu.de/",
 				"#44b198"
 			],
 			"YouTube": [
@@ -29,16 +29,17 @@
 			]
 		},
 		{
-			"Cours Infos": [
-				"http://cours-info.iut-bm.univ-fcomte.fr/",
-				"#db9456"
+
+			"Gmail": [
+				"https://mail.google.com/",
+				"#ff7146"
 			],
-			"185.13.37.145": [
-				"http://185.13.37.145/",
+			"Twitter": [
+				"https://twitter.com/",
 				"#b23f82"
 			],
-			"Société Générale": [
-				"https://particuliers.societegenerale.fr/",
+			"Owncloud": [
+				"https://owncloud.org/",
 				"#42b13e"
 			]
 		}
