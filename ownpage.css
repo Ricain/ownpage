@@ -8,13 +8,13 @@
 */
 
 @font-face {
-	font-family: 'Droid Sans Mono';
+	font-family: 'helvetica-neue';
 	font-style: normal;
 	font-weight: 400;
-	src: local('Droid Sans Mono'), local('DroidSansMono'), url(droidsansmono.woff) format('woff');
+	src: local('helvetica-neue'), local('helvetica-neue'), url(helvetica-neue.woff) format('woff');
 }
 
-/* MAIN VIEW */
+/* COMMON VIEW */
 
 html,
 body {
@@ -24,9 +24,20 @@ body {
 }
 
 body {
-	font-family: "Droid Sans Mono" ,"Lucida Console";
-	text-shadow: 1px 1px 4px rgb(51, 51, 51);
+	font-family: "helvetica-neue" ,"Lucida Console";
 	background-color: rgb(239,239,239);
+}
+
+a#ownpage {
+	display: block;
+	position: fixed;
+	bottom: 20px;
+	left: 30px;
+	font-size: .8em;
+	text-shadow: none;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: gray;
 }
 
 div#settings {
@@ -59,8 +70,8 @@ table td {
 	height: 33%;
 	padding: 10px;
 	text-align: center;
-	border-radius: 10px;
-	box-shadow: 0px 0px 3px #888888;
+	border-radius: 7px;
+	box-shadow: 0px 0px 20px #cbcbcb;
 }
 
 /* MAIN VIEW */
@@ -71,12 +82,14 @@ table#marquespages {
 table#marquespages td {
 	color: white;
 	cursor: pointer;
-	transition: padding-bottom .5s;
+	transition: font-size .1s;
 	background-color: gray;
+	font-size: 1.4em;
+	letter-spacing: 2px;
 }
 
 table#marquespages td:hover {
-	padding-bottom: 20px;
+	font-size: 1.6em;
 }
 
 /* EDIT VIEW */
@@ -102,6 +115,7 @@ table#edition td .color-box {
 	height:30px;
 	margin:5px;
 	border-radius: 3px;
+	cursor:crosshair;
 }
 
 /* EDIT BUTTON */
@@ -112,7 +126,7 @@ div#edit {
 	cursor: pointer;
 	bottom: 20px;
 	right: 30px;
-	font-size: .9em;
+	font-size: .8em;
 	text-shadow: none;
 	color: gray;
 }
