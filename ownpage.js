@@ -28,10 +28,17 @@ $(document).ready(function () {
 		urls = JSON.parse(localStorage.getItem("urls"));
 	}
 	else {
-		$.getJSON("https://raw.githubusercontent.com/Ricain/ownpage/master/ownpage.json",function($content){
-			urls = $content["urls"];
-			localStorage.setItem("urls", JSON.stringify($content["urls"]));
-		});
+		urls = [{
+			"Google":    ["https://www.google.com/",   "#3b97e8"],
+			"GitHub":    ["https://github.com/",       "#d4a20c"],
+			"Facebook":  ["https://www.facebook.com/", "#006699"]},{
+			"localhost": ["http://localhost/",         "#843fb2"],
+			"Selfoss":   ["http://selfoss.aditu.de/",  "#44b198"],
+			"YouTube":   ["https://www.youtube.com/",  "#c73535"]},{
+			"Gmail":     ["https://mail.google.com/",  "#ff7146"],
+			"Twitter":   ["https://twitter.com/",      "#b23f82"],
+			"Owncloud":  ["https://owncloud.org/",     "#42b13e"]}];
+		localStorage.setItem("urls",JSON.stringify(urls));
 	}
 	draw = (function () {
 		$("#edition").hide();

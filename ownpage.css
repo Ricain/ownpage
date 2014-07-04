@@ -14,8 +14,6 @@
 	src: local('helvetica-neue'), local('helvetica-neue'), url(helvetica-neue.woff) format('woff');
 }
 
-/* COMMON VIEW */
-
 html,
 body {
 	padding: 0;
@@ -59,6 +57,8 @@ div#center {
 	margin: auto;
 }
 
+/* COMMON VIEW */
+
 table {
 	width: 100%;
 	height: 100%;
@@ -68,7 +68,7 @@ table {
 
 table td {
 	width: 33%;
-	height: 33%;
+	height: 25%;
 	padding: 10px;
 	text-align: center;
 	border-radius: 7px;
@@ -108,6 +108,10 @@ table#edition td input {
 	margin: 0;
 	text-align: center;
 	width: 99%;
+}
+
+table#edition td input:focus {
+	outline: none;
 }
 
 table#edition td .color-box {
