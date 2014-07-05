@@ -83,14 +83,14 @@ table#marquespages {
 table#marquespages td {
 	color: white;
 	cursor: pointer;
-	transition: font-size .1s;
+	transition: font-size .15s;
 	background-color: gray;
-	font-size: 1.4em;
-	letter-spacing: 2px;
+	font-size: 1.5em;
+	letter-spacing: .1em;
 }
 
 table#marquespages td:hover {
-	font-size: 1.6em;
+	font-size: 1.8em;
 }
 
 /* EDIT VIEW */
