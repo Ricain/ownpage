@@ -2,7 +2,13 @@
 
 Alternative home page and new tab page for your browser.
 
+[USE IT - TRY IT - DEMO](http://ricain.github.io/ownpage/)
+
 ![example](example.png)
+
+#####Usage:
+
+You can either install OwnPage on your computer or server, but you can also use it from [here](http://ricain.github.io/ownpage/). All your data are stored locally and are never sent to any server.
 
 #####Install:
 
