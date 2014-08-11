@@ -35,7 +35,7 @@ a#ownpage {
 	text-shadow: none;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: gray;
+	color: #666666;
 	letter-spacing: 3px;
 }
 
@@ -97,7 +97,6 @@ table#marquespages td:hover {
 
 table#edition td {
 	background-color: white;
-	border: 3px dashed #3a3a3a,
 	color: #3a3a3a;
 	padding: 0;
 }
@@ -133,6 +132,6 @@ div#edit {
 	right: 30px;
 	font-size: .8em;
 	text-shadow: none;
-	color: gray;
+	color: #666666;
 	letter-spacing: 3px;
 }

@@ -2,7 +2,7 @@
 
 Alternative home page and new tab page for your browser.
 
-[USE IT - TRY IT - DEMO](http://ricain.github.io/ownpage/)
+[DEMO - TRY IT - USE IT](http://ricain.github.io/ownpage/)
 
 ![example](example.png)
 
