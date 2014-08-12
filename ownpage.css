@@ -26,19 +26,6 @@ body {
 	background-color: rgb(239,239,239);
 }
 
-a#ownpage {
-	display: block;
-	position: fixed;
-	bottom: 20px;
-	left: 30px;
-	font-size: .8em;
-	text-shadow: none;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: #666666;
-	letter-spacing: 3px;
-}
-
 div#settings {
 	display: block;
 	position: fixed;
@@ -66,7 +53,9 @@ table {
 	border-spacing: 40px;
 }
 
-table td {
+table td,
+table a {
+	vertical-align: middle;
 	width: 33%;
 	height: 25%;
 	padding: 10px;
@@ -80,7 +69,10 @@ table td {
 table#marquespages {
 }
 
-table#marquespages td {
+table#marquespages a {
+	display: table-cell;
+	text-decoration: none;
+	border: 0;
 	color: white;
 	cursor: pointer;
 	transition: font-size .15s;
@@ -89,7 +81,7 @@ table#marquespages td {
 	letter-spacing: .1em;
 }
 
-table#marquespages td:hover {
+table#marquespages a:hover {
 	font-size: 1.8em;
 }
 
@@ -134,4 +126,31 @@ div#edit {
 	text-shadow: none;
 	color: #666666;
 	letter-spacing: 3px;
+}
+
+/* EXTRA */
+
+ul.extra {
+	display: block;
+	position: fixed;
+	bottom: 20px;
+	left: 30px;
+	font-size: .8em;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+ul.extra a {
+	display: list-item;
+	margin-top: 5px;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #666666;
+	letter-spacing: 3px;
+	text-shadow: none;
+}
+
+ul.extra a.reset {
+	color: #c73535;
 }

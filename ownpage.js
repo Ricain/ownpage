@@ -33,8 +33,16 @@ $ownpage = {
 			$ligne = $("<tr></tr>");
 			$col = 0;
 			$.each($range,function($nom,$cont){
-				$cell = $("<td id='t" + $row + $col + "'>" + $nom + "</td>");
-				$cell.click(function(){
+				$nb   = $row*3+$col+1;
+				$cell = $("<a tabindex='" + $nb + "' href='" + $cont[0] + "' id='t" + $row + $col + "'>" + $nom + "</a>");
+				$cell.click(function(e){
+					e.preventDefault();
+					if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
+						localStorage.setItem("click",1);
+					}
+					else {
+						localStorage.setItem("click",parseInt(localStorage.getItem("click"))+1);
+					}
 					$(location).attr('href',$cont[0]);
 				});
 				$cell.css({ "background-color": $cont[1] });
@@ -48,6 +56,23 @@ $ownpage = {
 		$("#edit").click(function(){
 			$ownpage.edit();
 		});
+	},
+	stat : function (){
+		if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
+			return;
+		}
+		$nb_click = localStorage.getItem("click");
+		if(!$("#stat").length){
+			$count = $("<a id='stat' href='#'>" + $nb_click + " clicks</a>");
+			$count.click(function(e){
+				e.preventDefault();
+				alert("You clicked " + $nb_click + " time on your own links.\nNice job! :)");
+			});
+			$count.appendTo("#extra");
+		}
+		else {
+			$("#stat").html("You clicked " + $nb_click + " time on your own links.\nNice job! :)");
+		}
 	},
 	edit : function (){
 		$("#marquespages").hide();
@@ -84,7 +109,7 @@ $ownpage = {
 					layout      : 'rgbhex',
 					color       : $cont[1],
 					onSubmit:function(hsb,hex,rgb,el) {
-						$(el).css('background-color', '#'+hex);
+						$(el).css('background-color','#'+hex);
 						$(el).colpickHide();
 						$ownpage.urls[$row][$nom][1] = '#'+hex;
 						localStorage.setItem("urls",JSON.stringify($ownpage.urls));
@@ -115,6 +140,7 @@ $ownpage = {
 			localStorage.setItem("urls",JSON.stringify($ownpage.urls));
 		}
 		$ownpage.draw();
+		$ownpage.stat();
 	}
 };
 
