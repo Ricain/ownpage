@@ -51,6 +51,7 @@ $ownpage = {
 			});
 			$ligne.appendTo("#marquespages");
 		});
+		$("#reset").remove();
 		$("#edit").html("EDIT");
 		$("#edit").off('click');
 		$("#edit").click(function(){
@@ -71,7 +72,7 @@ $ownpage = {
 			$count.appendTo("#extra");
 		}
 		else {
-			$("#stat").html("You clicked " + $nb_click + " time on your own links.\nNice job! :)");
+			$("#stat").html("You clicked " + $nb_click + " times on your own links.\nNice job! :)");
 		}
 	},
 	edit : function (){
@@ -120,19 +121,25 @@ $ownpage = {
 			});
 			$ligne.appendTo("#edition");
 		});
+		$reset = $("<a href='#reset' id='reset' class='reset'>reset</a>");
+		$reset.click(function (e){
+			e.preventDefault();
+			$ownpage.reset();
+		});
+		$reset.appendTo("#extra");
 		$("#edit").html("DONE");
 		$("#edit").off('click');
 		$("#edit").click(function(){
 			$ownpage.draw();
 		});
 	},
-	init : function (){
-		if($(location).attr('hash') == "#clear"){
-			if(confirm("Are you sure to erase your local data?\nSaves will be lost.\n(You need internet for this)")){
-				localStorage.clear();
-			}
-			$(location).attr('hash',"");
+	reset : function () {
+		if(confirm("This will erase all your links. Do you want to continue?")){
+			localStorage.clear();
+			location.reload();
 		}
+	},
+	init : function (){
 		if(localStorage.getItem("urls")){
 			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
 		}
