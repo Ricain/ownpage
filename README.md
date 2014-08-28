@@ -13,9 +13,9 @@ You can either install OwnPage on your computer or server, but you can also use 
 #####Install:
 
 ```
-$ git clone https://github.com/Ricain/ownpage
+$ git clone -b gh-pages https://github.com/ricain/ownpage
 ```
-or [download zip](https://github.com/Ricain/ownpage/archive/master.zip).
+or [download zip](https://github.com/Ricain/ownpage/archive/gh-pages.zip).
 
 Open `index.html` with your favorite browser and make it your home page.
 
