@@ -8,7 +8,7 @@
 */
 
 $ownpage = {
-	version: [1,1,'stable'],
+	version: [1,2,'beta'],
 	urls : [
 		{
 			"Google":    ["https://www.google.com/",   "#3b97e8"],
@@ -27,7 +27,6 @@ $ownpage = {
 		}
 	],
 	draw : function (){
-		$("#edition").hide();
 		$("#marquespages").empty();
 		$("#marquespages").show();
 		$.each($ownpage.urls,function($row,$range){
@@ -56,6 +55,7 @@ $ownpage = {
 		$("#edit").html("EDIT");
 		$("#edit").off('click');
 		$("#edit").click(function(){
+			$("#marquespages").hide();
 			$ownpage.edit();
 		});
 	},
@@ -77,7 +77,6 @@ $ownpage = {
 		}
 	},
 	edit : function (){
-		$("#marquespages").hide();
 		$("#edition").empty();
 		$("#edition").show();
 		$.each($ownpage.urls,function($row,$range){
@@ -122,6 +121,7 @@ $ownpage = {
 			});
 			$ligne.appendTo("#edition");
 		});
+		$ownpage.box.editor.show();
 		$reset = $("<a href='#reset' id='reset' class='reset'>reset</a>");
 		$reset.click(function (e){
 			e.preventDefault();
@@ -131,8 +131,51 @@ $ownpage = {
 		$("#edit").html("DONE");
 		$("#edit").off('click');
 		$("#edit").click(function(){
+			$ownpage.box.editor.hide();
+			$("#edition").hide();
 			$ownpage.draw();
 		});
+	},
+	box : {
+		row : {
+			add : function () {
+				$nb = parseInt($("#row_count").contents().text());
+				$nb += 1;
+				$("#row_count").html($nb);
+			},
+			del : function () {
+				$nb = parseInt($("#row_count").contents().text());
+				$nb -= 1;
+				$("#row_count").html($nb);
+			}
+		},
+		col : {
+			add : function () {
+				$nb = parseInt($("#col_count").contents().text());
+				$nb += 1;
+				$("#col_count").html($nb);
+			},
+			del : function () {
+				$nb = parseInt($("#col_count").contents().text());
+				$nb -= 1;
+				$("#col_count").html($nb);
+			}
+		},
+		editor : {
+			show : function () {
+				$editor = $("<div id='size_editor'></div>").appendTo("body");
+				$("<span id='row_part'><table><tr><td id='add_row'>+</td></tr><tr><td id='del_row'>-</td></tr></table><span id='row_count'>3</span></span>").appendTo($editor);
+				$("#add_row").click($ownpage.box.row.add);
+				$("#del_row").click($ownpage.box.row.del);
+				$("<span> x </span>").appendTo($editor);
+				$("<span id='col_part'><span id='col_count'>3</span><table><tr><td id='add_col'>+</td></tr><tr><td id='del_col'>-</td></tr></table></span>").appendTo($editor);
+				$("#add_col").click($ownpage.box.col.add);
+				$("#del_col").click($ownpage.box.col.del);
+			},
+			hide : function () {
+				$("#size_editor").remove();
+			}
+		}
 	},
 	reset : function () {
 		if(confirm("This will erase all your links. Do you want to continue?")){
@@ -141,6 +184,7 @@ $ownpage = {
 		}
 	},
 	init : function (){
+		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
 		if(localStorage.getItem("urls")){
 			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
 		}
