@@ -8,7 +8,7 @@
 */
 
 $ownpage = {
-	version: [1,2,'beta'],
+	version: [1,2,'dev'],
 	urls : [
 		{
 			"Google":    ["https://www.google.com/",   "#3b97e8"],
