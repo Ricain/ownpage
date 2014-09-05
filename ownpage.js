@@ -13,7 +13,7 @@ $ownpage = {
 		{
 			"Google":    ["https://www.google.com/",   "#3b97e8"],
 			"GitHub":    ["https://github.com/",       "#d4a20c"],
-			"Facebook":  ["https://www.facebook.com/", "#006699"]
+			"Facebook":  ["https://www.facebook.com/", "#006699"],
 		},
 		{
 			"localhost": ["http://localhost/",         "#843fb2"],
@@ -26,6 +26,38 @@ $ownpage = {
 			"Owncloud":  ["https://owncloud.org/",     "#42b13e"]
 		}
 	],
+	// urls : [
+	// 	[
+	// 		["Google",   "https://www.google.com/",   "#3b97e8"],
+	// 		["GitHub",   "https://github.com/",       "#d4a20c"],
+	// 		["Facebook", "https://www.facebook.com/", "#006699"],
+	// 	],
+	// 	[
+	// 		["localhost", "http://localhost/",        "#843fb2"],
+	// 		["Selfoss", "http://selfoss.aditu.de/",   "#44b198"],
+	// 		["YouTube", "https://www.youtube.com/",   "#c73535"]
+	// 	],
+	// 	[
+	// 		["Gmail",    "https://mail.google.com/",  "#ff7146"],
+	// 		["Twitter",  "https://twitter.com/",      "#b23f82"],
+	// 		["Owncloud", "https://owncloud.org/",     "#42b13e"]
+	// 	]
+	// ],
+	mem : {
+		load : function () {
+			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
+		},
+		save : function () {
+			localStorage.setItem("urls",JSON.stringify($ownpage.urls));
+		}
+	},
+	clear : function () {
+		$("body").empty();
+		$("<div id='center'><table id='marquespages'></table><table id='edition' style='display:none'></table></div><div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
+		$("#marquespages").hide();
+		$ownpage.box.editor.hide();
+		$("#edition").hide();
+	},
 	draw : function (){
 		$("#marquespages").empty();
 		$("#marquespages").show();
@@ -101,7 +133,7 @@ $ownpage = {
 				$inputurl[$row][$col] = $ihref;
 				$ihref.change(function(){
 					$ownpage.urls[$row][$nom][0] = $(this).val();
-					localStorage.setItem("urls",JSON.stringify($ownpage.urls));
+					$ownpage.mem.save();
 				});
 				$ihref.appendTo($cell);
 				$colpick = $("<div class='color-box'></div>");
@@ -113,7 +145,7 @@ $ownpage = {
 						$(el).css('background-color','#'+hex);
 						$(el).colpickHide();
 						$ownpage.urls[$row][$nom][1] = '#'+hex;
-						localStorage.setItem("urls",JSON.stringify($ownpage.urls));
+						$ownpage.mem.save();
 					}
 				}).css('background-color', $cont[1]);
 				$colpick.appendTo($cell);
@@ -154,11 +186,23 @@ $ownpage = {
 				$nb = parseInt($("#col_count").contents().text());
 				$nb += 1;
 				$("#col_count").html($nb);
+				$.each($ownpage.urls,function($i,$row){
+					$row["TEST"] = ["https://www.youtube.com/",  "#c73535"];
+				});
+				$ownpage.mem.save();
+				$ownpage.clear();
+				$ownpage.edit();
 			},
 			del : function () {
 				$nb = parseInt($("#col_count").contents().text());
 				$nb -= 1;
 				$("#col_count").html($nb);
+				$.each($ownpage.urls,function($i,$row){
+					pop($row);
+				});
+				$ownpage.mem.save();
+				$ownpage.clear();
+				$ownpage.edit();
 			}
 		},
 		editor : {
@@ -186,11 +230,12 @@ $ownpage = {
 	init : function (){
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
 		if(localStorage.getItem("urls")){
-			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
+			$ownpage.mem.load();
 		}
 		else {
-			localStorage.setItem("urls",JSON.stringify($ownpage.urls));
+			$ownpage.mem.save();
 		}
+		$ownpage.clear();
 		$ownpage.draw();
 		$ownpage.stat();
 	}
