@@ -8,6 +8,7 @@
 */
 
 $ownpage = {
+	version: [1,2,'stable'],
 	urls : [
 		{
 			"Google":    ["https://www.google.com/",   "#3b97e8"],
@@ -140,6 +141,7 @@ $ownpage = {
 		}
 	},
 	init : function (){
+		localStorage.setItem("version",$ownpage.version[0].toString() + '.' + $ownpage.version[1].toString());
 		if(localStorage.getItem("urls")){
 			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
 		}
