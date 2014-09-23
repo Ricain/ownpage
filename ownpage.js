@@ -36,19 +36,27 @@ $ownpage = {
 	},
 	clear : function () {
 		$("body").empty();
-		$("<div id='center'><table id='marquespages'></table><table id='edition' style='display:none'></table></div><div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
+		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
+		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
 		$("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
+	},
+	vectalign : function ($node) {
+		$inter = $("<div class='vect_center'></div>");
+		$node.children().appendTo($inter);
+		$final = $("<div class='vect_parent'></div>");
+		$inter.appendTo($final);
+		$node.html($final);
 	},
 	draw : function (){
 		$("#marquespages").empty();
 		$("#marquespages").show();
 		$.each($ownpage.urls,function($row,$range){
-			$ligne = $("<tr></tr>");
+			$ligne = $("<div class='row'></div>");
 			$.each($range,function($col,$box){
 				$nb   = $row*3+$col+1;
-				$cell = $("<a tabindex='" + $nb + "' href='" + $box[1] + "' id='t" + $row + $col + "'>" + $box[0] + "</a>");
+				$cell = $("<a class='box' tabindex='" + $nb + "' href='" + $box[1] + "' id='t" + $row + $col + "'><span>" + $box[0] + "</span></a>");
 				$cell.click(function(e){
 					e.preventDefault();
 					if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
@@ -60,6 +68,7 @@ $ownpage = {
 					$(location).attr('href',$box[1]);
 				});
 				$cell.css({ "background-color": $box[2] });
+				$ownpage.vectalign($cell);
 				$cell.appendTo($ligne);
 			});
 			$ligne.appendTo("#marquespages");
@@ -71,6 +80,22 @@ $ownpage = {
 			$("#marquespages").hide();
 			$ownpage.edit();
 		});
+		$ownpage.resize();
+	},
+	resize : function() {
+		$newidth   = 250;
+		$newheight = 150;
+		if($(window).width() - (($(window).width()*2/100)*$ownpage.urls[0].length*2) - $ownpage.urls[0].length*$newidth -100 < 0){
+			$newidth = parseInt(($(window).width() - 100 - (($(window).width()*2/100)*$ownpage.urls[0].length*2))/$ownpage.urls[0].length);
+		}
+		if($(window).height() - 200 - (($(window).height()*2/100)*$ownpage.urls.length*2) - $ownpage.urls.length*$newheight <0){
+			$newheight = parseInt(($(window).height() - 200 - (($(window).height()*2/100)*$ownpage.urls.length*2))/$ownpage.urls.length);
+		}
+		$(".box").css("width",$newidth + "px");
+		$(".box_edit").css("width",$newidth + "px");
+		$(".box").css("height",$newheight + "px");
+		$(".box_edit").css("height",$newheight + "px");
+		$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
 	},
 	stat : function (){
 		if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
@@ -93,9 +118,9 @@ $ownpage = {
 		$("#edition").empty();
 		$("#edition").show();
 		$.each($ownpage.urls,function($row,$range){
-			$ligne    = $("<tr></tr>");
+			$ligne    = $("<div class='row'></div>");
 			$.each($range,function($col,$box){
-				$cell = $("<td id='e" + $row + $col + "'></td>");
+				$cell = $("<div class='box_edit'></div>");
 				$cell.appendTo($ligne);
 				$inom = $("<input type='text' placeholder='Name' value='" + $box[0] + "' />");
 				$inom.change(function(){
@@ -122,6 +147,7 @@ $ownpage = {
 					}
 				}).css('background-color', $box[2]);
 				$colpick.appendTo($cell);
+				$ownpage.vectalign($cell);
 			});
 			$ligne.appendTo("#edition");
 		});
@@ -139,6 +165,7 @@ $ownpage = {
 			$("#edition").hide();
 			$ownpage.draw();
 		});
+		$ownpage.resize();
 	},
 	box : {
 		row : {
@@ -176,6 +203,7 @@ $ownpage = {
 				$ownpage.mem.save();
 				$ownpage.clear();
 				$ownpage.edit();
+				$ownpage.stat();
 			},
 			del : function () {
 				$nb = parseInt($("#col_count").contents().text());
@@ -187,6 +215,7 @@ $ownpage = {
 				$ownpage.mem.save();
 				$ownpage.clear();
 				$ownpage.edit();
+				$ownpage.stat();
 			}
 		},
 		editor : {
@@ -255,6 +284,7 @@ $ownpage = {
 		$ownpage.clear();
 		$ownpage.draw();
 		$ownpage.stat();
+		$(window).resize($ownpage.resize);
 	}
 };
 

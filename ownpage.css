@@ -24,56 +24,64 @@ body {
 body {
 	font-family: "helvetica-neue" ,"Lucida Console";
 	background-color: rgb(239,239,239);
+	height: 100%;
+	width: 100%;
 }
 
-div#settings {
+#settings {
 	display: block;
 	position: fixed;
 	top: 20px;
 	right: 20px;
 }
 
-div#center {
-	width: 70%;
-	height: 80%;
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+#center {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	text-align: cente
+}
+
+/* VERTICAL ALIGN */
+
+.vect_parent {
+	display: table;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.vect_center {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+	height: 100;
 }
 
 /* COMMON IN EDIT AND MAIN VIEW */
 
-table#marquespages,
-table#edition {
-	width: 100%;
-	height: 100%;
-	border-collapse:separate;
-	border-spacing: 40px;
+#marquespages,
+#edition {
+	text-align: center;
 }
 
-table#marquespages td,
-table#edition td,
-table#marquespages a,
-table#edition a {
+#edition .box_edit,
+#marquespages a {
+	display: inline-block;
 	vertical-align: middle;
-	width: 33%;
-	height: 25%;
-	padding: 10px;
 	text-align: center;
 	border-radius: 7px;
 	box-shadow: 0px 0px 20px #cbcbcb;
+	margin: 2%;
+	overflow: hidden;
 }
 
 /* MAIN VIEW */
 
-table#marquespages {
+#marquespages {
 }
 
-table#marquespages a {
-	display: table-cell;
+#marquespages a {
 	text-decoration: none;
 	border: 0;
 	color: white;
@@ -84,19 +92,18 @@ table#marquespages a {
 	letter-spacing: .1em;
 }
 
-table#marquespages a:hover {
+#marquespages a:hover {
 	font-size: 1.8em;
 }
 
 /* EDIT VIEW */
 
-table#edition td {
+#edition .box_edit {
 	background-color: white;
 	color: #3a3a3a;
-	padding: 0;
 }
 
-table#edition td input {
+#edition .box_edit input {
 	border: 0;
 	padding: 0;
 	margin: 0;
@@ -104,11 +111,11 @@ table#edition td input {
 	width: 99%;
 }
 
-table#edition td input:focus {
+#edition .box_edit input:focus {
 	outline: none;
 }
 
-table#edition td .color-box {
+#edition .box_edit .color-box {
 	display: inline-block;
 	width:30px;
 	height:30px;
@@ -119,7 +126,7 @@ table#edition td .color-box {
 
 /* EDIT BUTTON */
 
-div#edit {
+#edit {
 	display: block;
 	position: fixed;
 	z-index: 10;
@@ -134,7 +141,7 @@ div#edit {
 
 /* EXTRA, LINK IN BOTTOM LEFT */
 
-ul.extra {
+.extra {
 	display: block;
 	position: fixed;
 	z-index: 9;
@@ -146,7 +153,7 @@ ul.extra {
 	list-style: none;
 }
 
-ul.extra a {
+.extra a {
 	display: list-item;
 	margin-top: 5px;
 	text-transform: uppercase;
@@ -156,13 +163,13 @@ ul.extra a {
 	text-shadow: none;
 }
 
-ul.extra a.reset {
+.extra a.reset {
 	color: #c73535;
 }
 
 /* ROW AND COL COUNT */
 
-div#size_editor {
+#size_editor {
 	position: fixed;
 	width: 100%;
 	z-index: 8;
@@ -172,7 +179,7 @@ div#size_editor {
 	color: #666666;
 }
 
-div#size_editor table {
+#size_editor table {
 	display: inline-block;
 	font-size: .6em;
 	border-collapse: collapse;
@@ -182,13 +189,13 @@ div#size_editor table {
 	transition: color 1s;
 }
 
-div#size_editor table td {
+#size_editor table td {
 	vertical-align: top;
 	height: 5px;
 	cursor: pointer;
 }
 
-div#size_editor span#col_part:hover table,
-div#size_editor span#row_part:hover table {
+#size_editor span#col_part:hover table,
+#size_editor span#row_part:hover table {
 	color: #666666;
 }
