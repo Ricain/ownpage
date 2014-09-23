@@ -8,7 +8,7 @@
 */
 
 $ownpage = {
-	version: [1,2,'dev'],
+	version: [2,0,'dev'],
 	urls : [
 		{
 			"Google":    ["https://www.google.com/",   "#3b97e8"],
@@ -221,20 +221,40 @@ $ownpage = {
 			}
 		}
 	},
-	reset : function () {
-		if(confirm("This will erase all your links. Do you want to continue?")){
+	reset : function (ask) {
+		ask = typeof ask !== 'undefined' ? ask : false;
+		if(ask || confirm("This will erase all your links. Do you want to continue?")){
 			localStorage.clear();
 			location.reload();
 		}
 	},
+	update : function () {
+		$old = localStorage.getItem("version").split('.');
+		if ($old[0] === ''){
+			$old = [0];
+			$odd = [0];
+		}
+		if (parseInt($old[0])==$ownpage.version[0] && parseInt($old[1])==$ownpage.version[1]) return false;
+		if (parseInt($old[0])>$ownpage.version[0] ||  (parseInt($old[0])==$ownpage.version[0] && parseInt($old[1])>$ownpage.version[1])) {
+			if(confirm("Your version of ownpage is to recent.\nDo you want to erase your data to make it work?")){
+				$ownpage.reset(true);
+				return true;
+			}
+			else {
+				exit();
+			}
+		}
+		alert("update");
+		return true;
+	},
 	init : function (){
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
-		if(localStorage.getItem("urls")){
+		if (localStorage.getItem("version") && localStorage.getItem("urls")) {
 			$ownpage.mem.load();
+			$ownpage.update();
 		}
-		else {
-			$ownpage.mem.save();
-		}
+		localStorage.setItem("version",$ownpage.version[0].toString() + '.' + $ownpage.version[1].toString());
+		$ownpage.mem.save();
 		$ownpage.clear();
 		$ownpage.draw();
 		$ownpage.stat();
