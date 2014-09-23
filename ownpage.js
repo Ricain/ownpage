@@ -9,40 +9,40 @@
 
 $ownpage = {
 	version: [2,0,'dev'],
-	urls : [
-		{
-			"Google":    ["https://www.google.com/",   "#3b97e8"],
-			"GitHub":    ["https://github.com/",       "#d4a20c"],
-			"Facebook":  ["https://www.facebook.com/", "#006699"],
-		},
-		{
-			"localhost": ["http://localhost/",         "#843fb2"],
-			"Selfoss":   ["http://selfoss.aditu.de/",  "#44b198"],
-			"YouTube":   ["https://www.youtube.com/",  "#c73535"]
-		},
-		{
-			"Gmail":     ["https://mail.google.com/",  "#ff7146"],
-			"Twitter":   ["https://twitter.com/",      "#b23f82"],
-			"Owncloud":  ["https://owncloud.org/",     "#42b13e"]
-		}
-	],
 	// urls : [
-	// 	[
-	// 		["Google",   "https://www.google.com/",   "#3b97e8"],
-	// 		["GitHub",   "https://github.com/",       "#d4a20c"],
-	// 		["Facebook", "https://www.facebook.com/", "#006699"],
-	// 	],
-	// 	[
-	// 		["localhost", "http://localhost/",        "#843fb2"],
-	// 		["Selfoss", "http://selfoss.aditu.de/",   "#44b198"],
-	// 		["YouTube", "https://www.youtube.com/",   "#c73535"]
-	// 	],
-	// 	[
-	// 		["Gmail",    "https://mail.google.com/",  "#ff7146"],
-	// 		["Twitter",  "https://twitter.com/",      "#b23f82"],
-	// 		["Owncloud", "https://owncloud.org/",     "#42b13e"]
-	// 	]
+	// 	{
+	// 		"Google":    ["https://www.google.com/",   "#3b97e8"],
+	// 		"GitHub":    ["https://github.com/",       "#d4a20c"],
+	// 		"Facebook":  ["https://www.facebook.com/", "#006699"],
+	// 	},
+	// 	{
+	// 		"localhost": ["http://localhost/",         "#843fb2"],
+	// 		"Selfoss":   ["http://selfoss.aditu.de/",  "#44b198"],
+	// 		"YouTube":   ["https://www.youtube.com/",  "#c73535"]
+	// 	},
+	// 	{
+	// 		"Gmail":     ["https://mail.google.com/",  "#ff7146"],
+	// 		"Twitter":   ["https://twitter.com/",      "#b23f82"],
+	// 		"Owncloud":  ["https://owncloud.org/",     "#42b13e"]
+	// 	}
 	// ],
+	urls : [
+		[
+			["Google",   "https://www.google.com/",   "#3b97e8"],
+			["GitHub",   "https://github.com/",       "#d4a20c"],
+			["Facebook", "https://www.facebook.com/", "#006699"],
+		],
+		[
+			["localhost", "http://localhost/",        "#843fb2"],
+			["Selfoss", "http://selfoss.aditu.de/",   "#44b198"],
+			["YouTube", "https://www.youtube.com/",   "#c73535"]
+		],
+		[
+			["Gmail",    "https://mail.google.com/",  "#ff7146"],
+			["Twitter",  "https://twitter.com/",      "#b23f82"],
+			["Owncloud", "https://owncloud.org/",     "#42b13e"]
+		]
+	],
 	mem : {
 		load : function () {
 			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
@@ -63,10 +63,9 @@ $ownpage = {
 		$("#marquespages").show();
 		$.each($ownpage.urls,function($row,$range){
 			$ligne = $("<tr></tr>");
-			$col = 0;
-			$.each($range,function($nom,$cont){
+			$.each($range,function($col,$box){
 				$nb   = $row*3+$col+1;
-				$cell = $("<a tabindex='" + $nb + "' href='" + $cont[0] + "' id='t" + $row + $col + "'>" + $nom + "</a>");
+				$cell = $("<a tabindex='" + $nb + "' href='" + $box[1] + "' id='t" + $row + $col + "'>" + $box[0] + "</a>");
 				$cell.click(function(e){
 					e.preventDefault();
 					if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
@@ -75,11 +74,10 @@ $ownpage = {
 					else {
 						localStorage.setItem("click",parseInt(localStorage.getItem("click"))+1);
 					}
-					$(location).attr('href',$cont[0]);
+					$(location).attr('href',$box[1]);
 				});
-				$cell.css({ "background-color": $cont[1] });
+				$cell.css({ "background-color": $box[2] });
 				$cell.appendTo($ligne);
-				$col += 1;
 			});
 			$ligne.appendTo("#marquespages");
 		});
@@ -113,26 +111,22 @@ $ownpage = {
 		$("#edition").show();
 		$.each($ownpage.urls,function($row,$range){
 			$ligne    = $("<tr></tr>");
-			$col      = 0;
 			$inputnom = [[],[],[]];
 			$inputurl = [[],[],[]];
-			$.each($range,function($nom,$cont){
+			$.each($range,function($col,$box){
 				$cell = $("<td id='e" + $row + $col + "'></td>");
 				$cell.appendTo($ligne);
-				$inom = $("<input type='text' placeholder='Name' value='" + $nom + "' />");
+				$inom = $("<input type='text' placeholder='Name' value='" + $box[0] + "' />");
 				$inputnom[$row][$col] = $inom;
 				$inom.change(function(){
-					surls         = JSON.stringify($ownpage.urls);
-					surls         = surls.replace("\"" + $nom + "\":", "\"" + $(this).val() + "\":");
-					$ownpage.urls = JSON.parse(surls);
-					$nom          = $(this).val();
-					localStorage.setItem("urls",surls);
+					$ownpage.urls[$row][$col][0] = $(this).val();
+					$ownpage.mem.save();
 				});
 				$inom.appendTo($cell);
-				$ihref = $("<input type='text' placeholder='URL' value='" + $cont[0] + "' />");
+				$ihref = $("<input type='text' placeholder='URL' value='" + $box[1] + "' />");
 				$inputurl[$row][$col] = $ihref;
 				$ihref.change(function(){
-					$ownpage.urls[$row][$nom][0] = $(this).val();
+					$ownpage.urls[$row][$col][1] = $(this).val();
 					$ownpage.mem.save();
 				});
 				$ihref.appendTo($cell);
@@ -140,16 +134,15 @@ $ownpage = {
 				$colpick.colpick({
 					colorScheme : 'light',
 					layout      : 'rgbhex',
-					color       : $cont[1],
+					color       : $box[2],
 					onSubmit:function(hsb,hex,rgb,el) {
 						$(el).css('background-color','#'+hex);
 						$(el).colpickHide();
-						$ownpage.urls[$row][$nom][1] = '#'+hex;
+						$ownpage.urls[$row][$col][2] = '#'+hex;
 						$ownpage.mem.save();
 					}
-				}).css('background-color', $cont[1]);
+				}).css('background-color', $box[2]);
 				$colpick.appendTo($cell);
-				$col += 1;
 			});
 			$ligne.appendTo("#edition");
 		});
@@ -234,8 +227,10 @@ $ownpage = {
 			$old = [0];
 			$odd = [0];
 		}
-		if (parseInt($old[0])==$ownpage.version[0] && parseInt($old[1])==$ownpage.version[1]) return false;
-		if (parseInt($old[0])>$ownpage.version[0] ||  (parseInt($old[0])==$ownpage.version[0] && parseInt($old[1])>$ownpage.version[1])) {
+		$old[0] = parseInt($old[0]);
+		$old[1] = parseInt($old[1]);
+		if ($old[0]==$ownpage.version[0] && $old[1]==$ownpage.version[1]) return false;
+		if ($old[0]>$ownpage.version[0] ||  ($old[0]==$ownpage.version[0] && $old[1]>$ownpage.version[1])) {
 			if(confirm("Your version of ownpage is to recent.\nDo you want to erase your data to make it work?")){
 				$ownpage.reset(true);
 				return true;
@@ -244,7 +239,18 @@ $ownpage = {
 				exit();
 			}
 		}
-		alert("update");
+		if($old[0]<2){
+			$newurl = [];
+			$.each($ownpage.urls,function(l,ligne){
+				$nligne = [];
+				$.each(ligne,function(c,col){
+					$nligne.push([c, col[0], col[1]]);
+				});
+				$newurl.push($nligne);
+			});
+			$ownpage.urls = $newurl;
+		}
+		// update future
 		return true;
 	},
 	init : function (){
