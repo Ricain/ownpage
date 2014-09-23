@@ -9,38 +9,21 @@
 
 $ownpage = {
 	version: [2,0,'dev'],
-	// urls : [
-	// 	{
-	// 		"Google":    ["https://www.google.com/",   "#3b97e8"],
-	// 		"GitHub":    ["https://github.com/",       "#d4a20c"],
-	// 		"Facebook":  ["https://www.facebook.com/", "#006699"],
-	// 	},
-	// 	{
-	// 		"localhost": ["http://localhost/",         "#843fb2"],
-	// 		"Selfoss":   ["http://selfoss.aditu.de/",  "#44b198"],
-	// 		"YouTube":   ["https://www.youtube.com/",  "#c73535"]
-	// 	},
-	// 	{
-	// 		"Gmail":     ["https://mail.google.com/",  "#ff7146"],
-	// 		"Twitter":   ["https://twitter.com/",      "#b23f82"],
-	// 		"Owncloud":  ["https://owncloud.org/",     "#42b13e"]
-	// 	}
-	// ],
 	urls : [
 		[
-			["Google",   "https://www.google.com/",   "#3b97e8"],
-			["GitHub",   "https://github.com/",       "#d4a20c"],
-			["Facebook", "https://www.facebook.com/", "#006699"],
+			["Google",    "https://www.google.com/",   "#3b97e8"],
+			["GitHub",    "https://github.com/",       "#d4a20c"],
+			["Facebook",  "https://www.facebook.com/", "#006699"],
 		],
 		[
-			["localhost", "http://localhost/",        "#843fb2"],
-			["Selfoss", "http://selfoss.aditu.de/",   "#44b198"],
-			["YouTube", "https://www.youtube.com/",   "#c73535"]
+			["localhost", "http://localhost/",         "#843fb2"],
+			["Selfoss",   "http://selfoss.aditu.de/",  "#44b198"],
+			["YouTube",   "https://www.youtube.com/",  "#c73535"]
 		],
 		[
-			["Gmail",    "https://mail.google.com/",  "#ff7146"],
-			["Twitter",  "https://twitter.com/",      "#b23f82"],
-			["Owncloud", "https://owncloud.org/",     "#42b13e"]
+			["Gmail",     "https://mail.google.com/",  "#ff7146"],
+			["Twitter",   "https://twitter.com/",      "#b23f82"],
+			["Owncloud",  "https://owncloud.org/",     "#42b13e"]
 		]
 	],
 	mem : {
@@ -111,20 +94,16 @@ $ownpage = {
 		$("#edition").show();
 		$.each($ownpage.urls,function($row,$range){
 			$ligne    = $("<tr></tr>");
-			$inputnom = [[],[],[]];
-			$inputurl = [[],[],[]];
 			$.each($range,function($col,$box){
 				$cell = $("<td id='e" + $row + $col + "'></td>");
 				$cell.appendTo($ligne);
 				$inom = $("<input type='text' placeholder='Name' value='" + $box[0] + "' />");
-				$inputnom[$row][$col] = $inom;
 				$inom.change(function(){
 					$ownpage.urls[$row][$col][0] = $(this).val();
 					$ownpage.mem.save();
 				});
 				$inom.appendTo($cell);
 				$ihref = $("<input type='text' placeholder='URL' value='" + $box[1] + "' />");
-				$inputurl[$row][$col] = $ihref;
 				$ihref.change(function(){
 					$ownpage.urls[$row][$col][1] = $(this).val();
 					$ownpage.mem.save();
@@ -167,11 +146,23 @@ $ownpage = {
 				$nb = parseInt($("#row_count").contents().text());
 				$nb += 1;
 				$("#row_count").html($nb);
+				$new_row = [];
+				$.each($ownpage.urls[0],function(){
+					$new_row.push(["Ownpage", "https://github.com/Ricain/ownpage", "#363636"]);
+				});
+				$ownpage.urls.push($new_row);
+				$ownpage.mem.save();
+				$ownpage.clear();
+				$ownpage.edit();
 			},
 			del : function () {
 				$nb = parseInt($("#row_count").contents().text());
 				$nb -= 1;
 				$("#row_count").html($nb);
+				$ownpage.urls.splice(-1,1);
+				$ownpage.mem.save();
+				$ownpage.clear();
+				$ownpage.edit();
 			}
 		},
 		col : {
@@ -180,7 +171,7 @@ $ownpage = {
 				$nb += 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
-					$row["TEST"] = ["https://www.youtube.com/",  "#c73535"];
+					$row.push(["Ownpage", "https://github.com/Ricain/ownpage", "#363636"]);
 				});
 				$ownpage.mem.save();
 				$ownpage.clear();
@@ -191,7 +182,7 @@ $ownpage = {
 				$nb -= 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
-					pop($row);
+					$row.splice(-1,1);
 				});
 				$ownpage.mem.save();
 				$ownpage.clear();
@@ -201,11 +192,11 @@ $ownpage = {
 		editor : {
 			show : function () {
 				$editor = $("<div id='size_editor'></div>").appendTo("body");
-				$("<span id='row_part'><table><tr><td id='add_row'>+</td></tr><tr><td id='del_row'>-</td></tr></table><span id='row_count'>3</span></span>").appendTo($editor);
+				$("<span id='row_part'><table><tr><td id='add_row'>+</td></tr><tr><td id='del_row'>-</td></tr></table><span id='row_count'>" + $ownpage.urls.length + "</span></span>").appendTo($editor);
 				$("#add_row").click($ownpage.box.row.add);
 				$("#del_row").click($ownpage.box.row.del);
 				$("<span> x </span>").appendTo($editor);
-				$("<span id='col_part'><span id='col_count'>3</span><table><tr><td id='add_col'>+</td></tr><tr><td id='del_col'>-</td></tr></table></span>").appendTo($editor);
+				$("<span id='col_part'><span id='col_count'>" + $ownpage.urls[0].length +  "</span><table><tr><td id='add_col'>+</td></tr><tr><td id='del_col'>-</td></tr></table></span>").appendTo($editor);
 				$("#add_col").click($ownpage.box.col.add);
 				$("#del_col").click($ownpage.box.col.del);
 			},
