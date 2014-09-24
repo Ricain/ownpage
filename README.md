@@ -6,15 +6,30 @@ Alternative home page and new tab page for your browser.
 
 ![example](example.png)
 
-#####Install:
+####Install:
 
-- Mozilla Firefox: use a third party extension: [New Tab Homepage add-ons](https://addons.mozilla.org/en-US/firefox/addon/new-tab-homepage/)
-- Google Chrome: [owncloud-chrome](http://goo.gl/hb6333) ([source](https://github.com/ricain/ownpage-chrome))
-- Safari & IE: no need for add-ons, you can set Ownpage directly as your new tab page :P
+*Note: all your data are stored locally and are never sent to any server.*
 
-**Note:** all your data are stored locally and are never sent to any server.
+###### Mozilla Firefox
 
-#####Source
+1. open [about:config](about:config)
+2. edit `browser.startup.homepage` and set it to `http://ricain.github.io/ownpage/`
+3. edit `browser.newtab.url` and set it to `http://ricain.github.io/ownpage/`
+4. close the window and well done!
+
+*Note: make sure there is a `/` at the end of the URL.*
+
+###### Google Chrome
+
+Simply install [owncloud-chrome](http://goo.gl/hb6333).
+
+[Source code](https://github.com/ricain/ownpage-chrome) of the extension.
+
+###### Safari & IE
+
+For this two navigators you just have to go to your browser's settings where you can edit your home page and your new tab page.
+
+####Source
 
 ```
 $ git clone -b gh-pages https://github.com/ricain/ownpage
@@ -23,11 +38,11 @@ or [download zip](https://github.com/Ricain/ownpage/archive/gh-pages.zip).
 
 Open `index.html` with your favorite browser and make it your home page.
 
-#####Used scripts:
+####Used scripts:
 
 [Colpick](http://colpick.com) (license GNU)
 
-#####License:
+####License:
 
 [Creative Commons 2.5](http://creativecommons.org/licenses/by/2.5/)
 
