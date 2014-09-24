@@ -6,7 +6,7 @@ Alternative home page and new tab page for your browser.
 
 ![example](example.png)
 
-####Install:
+####Install
 
 *Note: all your data are stored locally and are never sent to any server.*
 
@@ -38,11 +38,11 @@ or [download zip](https://github.com/Ricain/ownpage/archive/gh-pages.zip).
 
 Open `index.html` with your favorite browser and make it your home page.
 
-####Used scripts:
+####Used scripts
 
 [Colpick](http://colpick.com) (license GNU)
 
-####License:
+####License
 
 [Creative Commons 2.5](http://creativecommons.org/licenses/by/2.5/)
 
