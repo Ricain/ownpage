@@ -12,7 +12,7 @@ Alternative home page and new tab page for your browser.
 
 ###### Mozilla Firefox
 
-1. open [about:config](about:config)
+1. copy and paste `about:config` into the URL bar and press enter. A warning will popup but continue.
 2. edit `browser.startup.homepage` and set it to `http://ricain.github.io/ownpage/`
 3. edit `browser.newtab.url` and set it to `http://ricain.github.io/ownpage/`
 4. close the window and well done!
@@ -44,7 +44,4 @@ Open `index.html` with your favorite browser and make it your home page.
 
 ####License
 
-[Creative Commons 2.5](http://creativecommons.org/licenses/by/2.5/)
-
-- Free for use in both personal and commercial projects.
-- Attribution requires leaving author name, author link, and the license info intact.
+[GNU GPL v3.0](https://github.com/ricain/ownpage/blob/gh-pages/LICENSE.md)
