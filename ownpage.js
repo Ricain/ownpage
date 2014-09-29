@@ -19,7 +19,7 @@
 *******************************************************************************/
 
 $ownpage = {
-	version: [2,0,'stable'],
+	version: [2,1,'dev'],
 	urls : [
 		[
 			["Google",    "https://www.google.com/",   "#3b97e8"],
@@ -181,7 +181,7 @@ $ownpage = {
 	box : {
 		row : {
 			add : function () {
-				$nb = parseInt($("#row_count").contents().text());
+				$nb = $ownpage.urls[0].length;
 				$nb += 1;
 				$("#row_count").html($nb);
 				$new_row = [];
@@ -194,7 +194,8 @@ $ownpage = {
 				$ownpage.edit();
 			},
 			del : function () {
-				$nb = parseInt($("#row_count").contents().text());
+				$nb = $ownpage.urls[0].length;
+				if($nb <= 1) return;
 				$nb -= 1;
 				$("#row_count").html($nb);
 				$ownpage.urls.splice(-1,1);
@@ -205,7 +206,7 @@ $ownpage = {
 		},
 		col : {
 			add : function () {
-				$nb = parseInt($("#col_count").contents().text());
+				$nb = $ownpage.urls.length;
 				$nb += 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
@@ -217,7 +218,8 @@ $ownpage = {
 				$ownpage.stat();
 			},
 			del : function () {
-				$nb = parseInt($("#col_count").contents().text());
+				$nb = $ownpage.urls.length;
+				if($nb <= 1) return;
 				$nb -= 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
@@ -285,6 +287,7 @@ $ownpage = {
 		return true;
 	},
 	init : function (){
+		if(window.location.hash == "#reset") $ownpage.reset();
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
 		if (localStorage.getItem("version") && localStorage.getItem("urls")) {
 			$ownpage.mem.load();
