@@ -181,7 +181,7 @@ $ownpage = {
 	box : {
 		row : {
 			add : function () {
-				$nb = $ownpage.urls[0].length;
+				$nb = $ownpage.urls.length;
 				$nb += 1;
 				$("#row_count").html($nb);
 				$new_row = [];
@@ -194,7 +194,7 @@ $ownpage = {
 				$ownpage.edit();
 			},
 			del : function () {
-				$nb = $ownpage.urls[0].length;
+				$nb = $ownpage.urls.length;
 				if($nb <= 1) return;
 				$nb -= 1;
 				$("#row_count").html($nb);
@@ -206,7 +206,7 @@ $ownpage = {
 		},
 		col : {
 			add : function () {
-				$nb = $ownpage.urls.length;
+				$nb = $ownpage.urls[0].length;
 				$nb += 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
@@ -218,7 +218,7 @@ $ownpage = {
 				$ownpage.stat();
 			},
 			del : function () {
-				$nb = $ownpage.urls.length;
+				$nb = $ownpage.urls[0].length;
 				if($nb <= 1) return;
 				$nb -= 1;
 				$("#col_count").html($nb);
@@ -234,11 +234,11 @@ $ownpage = {
 		editor : {
 			show : function () {
 				$editor = $("<div id='size_editor'></div>").appendTo("body");
-				$("<span id='row_part'><table><tr><td id='add_row'>+</td></tr><tr><td id='del_row'>-</td></tr></table><span id='row_count'>" + $ownpage.urls.length + "</span></span>").appendTo($editor);
+				$("<span id='row_part'><table><tr><td id='add_row'>&#9650;</td></tr><tr><td id='del_row'>&#9660;</td></tr></table><span id='row_count'>" + $ownpage.urls.length + "</span></span>").appendTo($editor);
 				$("#add_row").click($ownpage.box.row.add);
 				$("#del_row").click($ownpage.box.row.del);
 				$("<span> x </span>").appendTo($editor);
-				$("<span id='col_part'><span id='col_count'>" + $ownpage.urls[0].length +  "</span><table><tr><td id='add_col'>+</td></tr><tr><td id='del_col'>-</td></tr></table></span>").appendTo($editor);
+				$("<span id='col_part'><span id='col_count'>" + $ownpage.urls[0].length +  "</span><table><tr><td id='add_col'>&#9650;</td></tr><tr><td id='del_col'>&#9660;</td></tr></table></span>").appendTo($editor);
 				$("#add_col").click($ownpage.box.col.add);
 				$("#del_col").click($ownpage.box.col.del);
 			},

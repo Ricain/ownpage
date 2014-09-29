@@ -193,21 +193,18 @@ body {
 
 #size_editor table {
 	display: inline-block;
-	font-size: .6em;
+	font-size: .4em;
 	border-collapse: collapse;
 	border: 0;
-	height: 2em;
-	color: rgb(239,239,239);
+	margin: 0 10px;
+	color: #777777;
 	transition: color 1s;
+	margin-bottom: -4px;
 }
 
 #size_editor table td {
 	vertical-align: top;
 	height: 5px;
 	cursor: pointer;
-}
-
-#size_editor span#col_part:hover table,
-#size_editor span#row_part:hover table {
-	color: #666666;
+	padding: 0;
 }
