@@ -1,9 +1,9 @@
 CACHE MANIFEST
 # u12
-colpick.css
-colpick.js
-helvetica-neue.woff
+css/colpick.css
+css/ownpage.css
+js/jquery.min.js
+js/ownpage.js
+js/colpick.js
+media/fonts/helvetica-neue.woff
 index.html
-jquery.min.js
-ownpage.css
-ownpage.js
