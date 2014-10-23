@@ -22,7 +22,7 @@
 	font-family: 'helvetica-neue';
 	font-style: normal;
 	font-weight: 400;
-	src: local('helvetica-neue'), local('helvetica-neue'), url(helvetica-neue.woff) format('woff');
+	src: local('helvetica-neue'), local('helvetica-neue'), url(../media/fonts/helvetica-neue.woff) format('woff');
 }
 
 html,
