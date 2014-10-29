@@ -24,17 +24,12 @@ $ownpage = {
 		[
 			["Google",    "https://www.google.com/",   "#3b97e8"],
 			["GitHub",    "https://github.com/",       "#d4a20c"],
-			["Facebook",  "https://www.facebook.com/", "#006699"],
+			["Twitter",   "https://twitter.com/",      "#465ca6"]
 		],
 		[
-			["localhost", "http://localhost/",         "#843fb2"],
+			["Owncloud",  "https://owncloud.org/",     "#c91271"],
 			["Selfoss",   "http://selfoss.aditu.de/",  "#44b198"],
 			["YouTube",   "https://www.youtube.com/",  "#c73535"]
-		],
-		[
-			["Gmail",     "https://mail.google.com/",  "#ff7146"],
-			["Twitter",   "https://twitter.com/",      "#b23f82"],
-			["Owncloud",  "https://owncloud.org/",     "#42b13e"]
 		]
 	],
 	mem : {
