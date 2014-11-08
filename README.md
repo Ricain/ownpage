@@ -40,11 +40,11 @@ Open `index.html` with your favorite browser and make it your home page.
 
 ####To do
 
-- drag and drop to reorgenize boxes in edit mode
-- a way to export and import links and colors in json
-- firefox extention (new repo required)
-- tutoriel for new user
-- new favicon
+- [ ] drag and drop to reorgenize boxes in edit mode
+- [ ] a way to export and import links and colors in json
+- [ ] firefox extention (new repo required)
+- [ ] tutoriel for new user
+- [ ] new favicon
 
 ####Used scripts
 
