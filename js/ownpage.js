@@ -52,14 +52,6 @@ $ownpage = {
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
 	},
-	// Vertical align in a box.
-	vectalign : function ($node) {
-		$inter = $("<div class='vect_center'></div>");
-		$node.children().appendTo($inter);
-		$final = $("<div class='vect_parent'></div>");
-		$inter.appendTo($final);
-		$node.html($final);
-	},
 	// Build the main view.
 	draw : function (){
 		$("#marquespages").empty();
@@ -80,7 +72,6 @@ $ownpage = {
 					$(location).attr('href',$box[1]);
 				});
 				$cell.css({ "background-color": $box[2] });
-				$ownpage.vectalign($cell);
 				$cell.appendTo($ligne);
 			});
 			$ligne.appendTo("#marquespages");
@@ -163,7 +154,6 @@ $ownpage = {
 					}
 				}).css('background-color', $box[2]);
 				$colpick.appendTo($cell);
-				$ownpage.vectalign($cell);
 			});
 			$ligne.appendTo("#edition");
 		});
