@@ -14,7 +14,8 @@
 *    GNU General Public License for more details.                             *
 *                                                                             *
 *    You should have received a copy of the GNU General Public License        *
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
+*    along with this program.  If not, see:                                   *
+*    <https://github.com/Ricain/ownpage/blob/master/LICENSE.md>.              *
 *                                                                             *
 *******************************************************************************/
 
@@ -23,7 +24,7 @@ $ownpage = {
 	urls : [
 		[
 			["Google",    "https://www.google.com/",   "#3b97e8"],
-			["GitHub",    "https://github.com/",       "#d4a20c"],
+			["GitHub",    "https://github.com/",       "#e6a100"],
 			["Twitter",   "https://twitter.com/",      "#465ca6"]
 		],
 		[
