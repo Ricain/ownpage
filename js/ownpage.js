@@ -21,6 +21,7 @@
 
 $ownpage = {
 	version: [2,2,'dev'],
+	// Default urls, overwritted when custumized by user.
 	urls : [
 		[
 			["Google",    "https://www.google.com/",   "#3b97e8"],
@@ -33,6 +34,7 @@ $ownpage = {
 			["YouTube",   "https://www.youtube.com/",  "#c73535"]
 		]
 	],
+	// Mem as memory. Save and load urls from local storage.
 	mem : {
 		load : function () {
 			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
@@ -41,6 +43,7 @@ $ownpage = {
 			localStorage.setItem("urls",JSON.stringify($ownpage.urls));
 		}
 	},
+	// Clear all view in HTML.
 	clear : function () {
 		$("body").empty();
 		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
@@ -49,6 +52,7 @@ $ownpage = {
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
 	},
+	// Vertical align in a box.
 	vectalign : function ($node) {
 		$inter = $("<div class='vect_center'></div>");
 		$node.children().appendTo($inter);
@@ -56,6 +60,7 @@ $ownpage = {
 		$inter.appendTo($final);
 		$node.html($final);
 	},
+	// Build the main view.
 	draw : function (){
 		$("#marquespages").empty();
 		$("#marquespages").show();
@@ -89,6 +94,7 @@ $ownpage = {
 		});
 		$ownpage.resize();
 	},
+	// Adjust components in function of the window height and width.
 	resize : function() {
 		$newidth   = 250;
 		$newheight = 150;
@@ -101,9 +107,11 @@ $ownpage = {
 		$(".box").css("width",$newidth + "px");
 		$(".box_edit").css("width",$newidth + "px");
 		$(".box").css("height",$newheight + "px");
+		$(".box").css("line-height",$newheight + "px");
 		$(".box_edit").css("height",$newheight + "px");
 		$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
 	},
+	// Add number of clicks in bottom left corner.
 	stat : function (){
 		if(!localStorage.getItem("click") || localStorage.getItem("click")=="NaN"){
 			return;
@@ -121,6 +129,7 @@ $ownpage = {
 			$("#stat").html("You clicked " + $nb_click + " times on your own links.\nNice job! :)");
 		}
 	},
+	// Build the edit view.
 	edit : function (){
 		$("#edition").empty();
 		$("#edition").show();
@@ -174,6 +183,7 @@ $ownpage = {
 		});
 		$ownpage.resize();
 	},
+	// Everything about adding and removing a line or a column.
 	box : {
 		row : {
 			add : function () {
@@ -227,6 +237,7 @@ $ownpage = {
 				$ownpage.stat();
 			}
 		},
+		// Editor to show and hide columns and lines.
 		editor : {
 			show : function () {
 				$editor = $("<div id='size_editor'></div>").appendTo("body");
@@ -243,6 +254,7 @@ $ownpage = {
 			}
 		}
 	},
+	// Delete local storage.
 	reset : function (ask) {
 		ask = typeof ask !== 'undefined' ? ask : false;
 		if(ask || confirm("This will erase all your links. Do you want to continue?")){
@@ -250,6 +262,7 @@ $ownpage = {
 			location.reload();
 		}
 	},
+	// Update data from local storage depending on version.
 	update : function () {
 		$old = localStorage.getItem("version").split('.');
 		if ($old[0] === ''){
@@ -282,6 +295,7 @@ $ownpage = {
 		// update future
 		return true;
 	},
+	// Initializes Ownpage.
 	init : function (){
 		if(window.location.hash == "#reset") $ownpage.reset();
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
