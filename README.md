@@ -45,6 +45,7 @@ Open `index.html` with your favorite browser and make it your home page.
 - [ ] firefox extention (new repo required)
 - [ ] tutoriel for new user
 - [ ] new favicon
+- [ ] customizable background color and text color
 
 ####Used scripts
 
