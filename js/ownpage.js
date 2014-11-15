@@ -46,6 +46,7 @@ $ownpage = {
 	// Clear all view in HTML.
 	clear : function () {
 		$("body").empty();
+		$("<div id='googleBar'><FORM method=GET action='http://www.google.fr/search'><INPUT TYPE='text' name='q'><button class='boutonGoogle' name='btnG'>Recherche Google</button></FORM></div>").appendTo("body");
 		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
 		$("#marquespages").hide();
@@ -54,6 +55,7 @@ $ownpage = {
 	},
 	// Build the main view.
 	draw : function (){
+
 		$("#marquespages").empty();
 		$("#marquespages").show();
 		$.each($ownpage.urls,function($row,$range){
@@ -100,7 +102,7 @@ $ownpage = {
 		$(".box").css("height",$newheight + "px");
 		$(".box").css("line-height",$newheight + "px");
 		$(".box_edit").css("height",$newheight + "px");
-		$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
+		//$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
 	},
 	// Add number of clicks in bottom left corner.
 	stat : function (){
