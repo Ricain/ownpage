@@ -51,9 +51,15 @@ body {
 	display: block;
 	width: 100%;
 	overflow: hidden;
-	text-align: cente
+	text-align: center;
 }
-
+#googleBar {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-top:2%;
+	margin-bottom:1%;
+}
 /* VERTICAL ALIGN */
 
 .vect_parent {
@@ -208,4 +214,25 @@ body {
 	height: 5px;
 	cursor: pointer;
 	padding: 0;
+}
+.boutonGoogle {
+  margin : 0;
+	padding:6px 6px 6px 6px;
+	font:bold 13px Arial;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	border:1px solid #ccc;
+  height:30px;
+}
+input[type="text"] {
+  display: inline-block;
+  margin: 0;
+  width: 30%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  height:30px;
 }
