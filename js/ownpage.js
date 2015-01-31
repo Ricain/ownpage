@@ -34,18 +34,28 @@ $ownpage = {
 			["YouTube",   "https://www.youtube.com/",  "#c73535"]
 		]
 	],
+	settings : {
+		searchbar : [ true, "show Google searh bar"]
+	},
+	toadd : ["Ownpage", "https://github.com/Ricain/ownpage", "#363636"],
 	// Mem as memory. Save and load urls from local storage.
 	mem : {
 		load : function () {
-			$ownpage.urls = JSON.parse(localStorage.getItem("urls"));
+			$ownpage.urls     = JSON.parse(localStorage.getItem("urls"));
+			$ownpage.settings = JSON.parse(localStorage.getItem("settings"));
 		},
 		save : function () {
-			localStorage.setItem("urls",JSON.stringify($ownpage.urls));
+			localStorage.setItem("urls",     JSON.stringify($ownpage.urls));
+			localStorage.setItem("settings", JSON.stringify($ownpage.settings));
+		},
+		test : function () {
+			return (localStorage.getItem("version") && localStorage.getItem("urls") && localStorage.getItem("settings"));
 		}
 	},
 	// Clear all view in HTML.
 	clear : function () {
 		$("body").empty();
+		$ownpage.preference.init();
 		$ownpage.search.init();
 		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
@@ -58,12 +68,14 @@ $ownpage = {
 			$("<div id='googleBar' style='display:none'><form method='GET' action='http://www.google.com/search'><input placeholder='Google' type='text' name='q'><button class='boutonGoogle' name='btnG'>Search</button></form></div>").appendTo("body");
 		},
 		show : function () {
+			if (!$ownpage.settings.searchbar[0]) return;
 			$("#googleBar").show();
 		},
 		hide : function () {
 			$("#googleBar").hide();
 		},
 		focus : function () {
+			if (!$ownpage.settings.searchbar[0]) return;
 			$("#googleBar input").focus();
 		}
 	},
@@ -141,6 +153,7 @@ $ownpage = {
 	// Build the edit view.
 	edit : function (){
 		$("#edition").empty();
+		$ownpage.preference.show();
 		$("#edition").show();
 		$.each($ownpage.urls,function($row,$range){
 			$ligne    = $("<div class='row'></div>");
@@ -186,10 +199,33 @@ $ownpage = {
 		$("#edit").off('click');
 		$("#edit").click(function(){
 			$ownpage.box.editor.hide();
+			$ownpage.preference.hide();
 			$("#edition").hide();
 			$ownpage.draw();
 		});
 		$ownpage.resize();
+	},
+	// Show a list of Settings from $ownpage.settings
+	preference : {
+		init : function () {
+			$container = $("<div style='display:none' id='preference'></div>");
+			$.each($ownpage.settings, function ($key, $value) {
+				$checked = "";
+				if ($ownpage.settings[$key][0]) $checked = "checked";
+				$("<input type='checkbox' " + $checked + " id='pref-" + $key + "' />").click(function () {
+					$ownpage.settings[$key][0] = !$ownpage.settings[$key][0];
+					$ownpage.mem.save();
+				}).appendTo($container);
+				$("<label for='pref-" + $key + "'>" + $value[1] + "</label><br />").appendTo($container);
+			});
+			$container.appendTo("body");
+		},
+		show : function () {
+			$("#preference").show();
+		},
+		hide : function () {
+			$("#preference").hide();
+		}
 	},
 	// Everything about adding and removing a line or a column.
 	box : {
@@ -200,7 +236,7 @@ $ownpage = {
 				$("#row_count").html($nb);
 				$new_row = [];
 				$.each($ownpage.urls[0],function(){
-					$new_row.push(["Ownpage", "https://github.com/Ricain/ownpage", "#363636"]);
+					$new_row.push($ownpage.toadd);
 				});
 				$ownpage.urls.push($new_row);
 				$ownpage.mem.save();
@@ -224,7 +260,7 @@ $ownpage = {
 				$nb += 1;
 				$("#col_count").html($nb);
 				$.each($ownpage.urls,function($i,$row){
-					$row.push(["Ownpage", "https://github.com/Ricain/ownpage", "#363636"]);
+					$row.push($ownpage.toadd);
 				});
 				$ownpage.mem.save();
 				$ownpage.clear();
@@ -307,7 +343,7 @@ $ownpage = {
 	init : function (){
 		if(window.location.hash == "#reset") $ownpage.reset();
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
-		if (localStorage.getItem("version") && localStorage.getItem("urls")) {
+		if ($ownpage.mem.test()) {
 			$ownpage.mem.load();
 			$ownpage.update();
 		}
