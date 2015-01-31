@@ -46,17 +46,31 @@ $ownpage = {
 	// Clear all view in HTML.
 	clear : function () {
 		$("body").empty();
-		$("<div id='googleBar'><FORM method=GET action='http://www.google.fr/search'><INPUT TYPE='text' name='q'><button class='boutonGoogle' name='btnG'>Recherche Google</button></FORM></div>").appendTo("body");
+		$ownpage.search.init();
 		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
 		$("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
 	},
+	search : {
+		init : function () {
+			$("<div id='googleBar' style='display:none'><form method='GET' action='http://www.google.com/search'><input placeholder='Google' type='text' name='q'><button class='boutonGoogle' name='btnG'>Search</button></form></div>").appendTo("body");
+		},
+		show : function () {
+			$("#googleBar").show();
+		},
+		hide : function () {
+			$("#googleBar").hide();
+		},
+		focus : function () {
+			$("#googleBar input").focus();
+		}
+	},
 	// Build the main view.
 	draw : function (){
-
 		$("#marquespages").empty();
+		$ownpage.search.show();
 		$("#marquespages").show();
 		$.each($ownpage.urls,function($row,$range){
 			$ligne = $("<div class='row'></div>");
@@ -82,10 +96,12 @@ $ownpage = {
 		$("#edit").html("EDIT");
 		$("#edit").off('click');
 		$("#edit").click(function(){
+			$ownpage.search.hide();
 			$("#marquespages").hide();
 			$ownpage.edit();
 		});
 		$ownpage.resize();
+		$ownpage.search.focus();
 	},
 	// Adjust components in function of the window height and width.
 	resize : function() {
