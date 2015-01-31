@@ -1,23 +1,23 @@
-/******************************************************************************
-*                                                                             *
-*    Ownpage - Your own homepage.                                             *
-*    Copyright (C) 2014  Jean Mercadier <http://jmercadier.fr>                *
-*                                                                             *
-*    This program is free software: you can redistribute it and/or modify     *
-*    it under the terms of the GNU General Public License as published by     *
-*    the Free Software Foundation, either version 3 of the License, or        *
-*    (at your option) any later version.                                      *
-*                                                                             *
-*    This program is distributed in the hope that it will be useful,          *
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of           *
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
-*    GNU General Public License for more details.                             *
-*                                                                             *
-*    You should have received a copy of the GNU General Public License        *
-*    along with this program.  If not, see:                                   *
-*    <https://github.com/Ricain/ownpage/blob/master/LICENSE.md>.              *
-*                                                                             *
-*******************************************************************************/
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                             *
+ *    Ownpage - Your own homepage.                                             *
+ *    Copyright (C) 2014  Jean Mercadier <http://jmercadier.fr>                *
+ *                                                                             *
+ *    This program is free software: you can redistribute it and/or modify     *
+ *    it under the terms of the GNU General Public License as published by     *
+ *    the Free Software Foundation, either version 3 of the License, or        *
+ *    (at your option) any later version.                                      *
+ *                                                                             *
+ *    This program is distributed in the hope that it will be useful,          *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of           *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
+ *    GNU General Public License for more details.                             *
+ *                                                                             *
+ *    You should have received a copy of the GNU General Public License        *
+ *    along with this program.  If not, see:                                   *
+ *    <https://github.com/Ricain/ownpage/blob/master/LICENSE.md>.              *
+ *                                                                             *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 $ownpage = {
 	version: [2,2,'dev'],
@@ -35,21 +35,23 @@ $ownpage = {
 		]
 	],
 	settings : {
-		searchbar : [ true, "show Google searh bar"]
+		searchbar : [true, "show Google searh bar"]
 	},
 	toadd : ["Ownpage", "https://github.com/Ricain/ownpage", "#363636"],
 	// Mem as memory. Save and load urls from local storage.
 	mem : {
 		load : function () {
-			$ownpage.urls     = JSON.parse(localStorage.getItem("urls"));
-			$ownpage.settings = JSON.parse(localStorage.getItem("settings"));
+			if (localStorage.getItem("urls"))     $ownpage.urls = JSON.parse(localStorage.getItem("urls"));
+			if (localStorage.getItem("settings")) {
+				$.each(JSON.parse(localStorage.getItem("settings")), function($key, $value) {
+					if ($key in $ownpage.settings) $ownpage.settings[$key] = $value;
+				});
+			}
 		},
 		save : function () {
+			localStorage.setItem("version",  $ownpage.version[0].toString() + '.' + $ownpage.version[1].toString());
 			localStorage.setItem("urls",     JSON.stringify($ownpage.urls));
 			localStorage.setItem("settings", JSON.stringify($ownpage.settings));
-		},
-		test : function () {
-			return (localStorage.getItem("version") && localStorage.getItem("urls") && localStorage.getItem("settings"));
 		}
 	},
 	// Clear all view in HTML.
@@ -58,7 +60,9 @@ $ownpage = {
 		$ownpage.preference.init();
 		$ownpage.search.init();
 		$("<div id='center'><div id='marquespages'></div><div id='edition' style='display:none'></div></div>").appendTo("body");
-		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage</a></ul>").appendTo("body");
+		$dev  = "";
+		if ($ownpage.version[2] != "stable") $dev = $ownpage.version[2];
+		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage " + $dev + "</a></ul>").appendTo("body");
 		$("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
@@ -325,7 +329,7 @@ $ownpage = {
 				exit();
 			}
 		}
-		if($old[0]<2){
+		if($old[0]<2 && localStorage.getItem("settings")){
 			$newurl = [];
 			$.each($ownpage.urls,function(l,ligne){
 				$nligne = [];
@@ -339,15 +343,17 @@ $ownpage = {
 		// update future
 		return true;
 	},
+	// Parse url hash
+	parsehash : function () {
+		if(window.location.hash == "#reset")   $ownpage.reset();
+		if(window.location.hash == "#version") alert("Ownpage " + $ownpage.version[0] + "." + $ownpage.version[1] + " " + $ownpage.version[2]);
+	},
 	// Initializes Ownpage.
 	init : function (){
-		if(window.location.hash == "#reset") $ownpage.reset();
+		$ownpage.parsehash();
 		if ($ownpage.version[2]!="stable") $(document).prop('title', 'Ownpage [' + $ownpage.version[2] + ']');
-		if ($ownpage.mem.test()) {
-			$ownpage.mem.load();
-			$ownpage.update();
-		}
-		localStorage.setItem("version",$ownpage.version[0].toString() + '.' + $ownpage.version[1].toString());
+		$ownpage.mem.load();
+		$ownpage.update();
 		$ownpage.mem.save();
 		$ownpage.clear();
 		$ownpage.draw();
