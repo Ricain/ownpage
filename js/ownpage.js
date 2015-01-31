@@ -123,18 +123,18 @@ $ownpage = {
 	resize : function() {
 		$newidth   = 250;
 		$newheight = 150;
-		if($(window).width() - (($(window).width()*2/100)*$ownpage.urls[0].length*2) - $ownpage.urls[0].length*$newidth -100 < 0){
+		if($(window).width() - (($(window).width()*2/100)*$ownpage.urls[0].length*2) - $ownpage.urls[0].length*$newidth - 100 < 0) {
 			$newidth = parseInt(($(window).width() - 100 - (($(window).width()*2/100)*$ownpage.urls[0].length*2))/$ownpage.urls[0].length);
 		}
-		if($(window).height() - 200 - (($(window).height()*2/100)*$ownpage.urls.length*2) - $ownpage.urls.length*$newheight <0){
-			$newheight = parseInt(($(window).height() - 200 - (($(window).height()*2/100)*$ownpage.urls.length*2))/$ownpage.urls.length);
+		if($(window).height() - 250 - (($(window).height()*2/100)*$ownpage.urls.length*2) - $ownpage.urls.length*$newheight <0){
+			$newheight = parseInt(($(window).height() - 250 - (($(window).height()*2/100)*$ownpage.urls.length*2))/$ownpage.urls.length);
 		}
 		$(".box").css("width",$newidth + "px");
 		$(".box_edit").css("width",$newidth + "px");
 		$(".box").css("height",$newheight + "px");
 		$(".box").css("line-height",$newheight + "px");
 		$(".box_edit").css("height",$newheight + "px");
-		//$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
+		$("#center").css("margin-top", parseInt(($(window).height() - $("#center").height())/2 -15) + "px");
 	},
 	// Add number of clicks in bottom left corner.
 	stat : function (){
@@ -164,6 +164,7 @@ $ownpage = {
 			$.each($range,function($col,$box){
 				$cell = $("<div class='box_edit'></div>");
 				$cell.appendTo($ligne);
+				$("<div class='vertalign'></div>").appendTo($cell);
 				$inom = $("<input type='text' placeholder='Name' value='" + $box[0] + "' />");
 				$inom.change(function(){
 					$ownpage.urls[$row][$col][0] = $(this).val();
@@ -312,10 +313,12 @@ $ownpage = {
 	},
 	// Update data from local storage depending on version.
 	update : function () {
-		$old = localStorage.getItem("version").split('.');
-		if ($old[0] === ''){
-			$old = [0];
-			$odd = [0];
+		$old = localStorage.getItem("version");
+		if ($old === null || $old[0] === ''){
+			$old = [0,0];
+		}
+		else {
+			$old = $old.split('.');
 		}
 		$old[0] = parseInt($old[0]);
 		$old[1] = parseInt($old[1]);
