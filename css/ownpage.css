@@ -126,13 +126,14 @@ body {
 	padding: 0;
 	margin: 0;
 	text-align: center;
+	font-size: .9em;
 	width: 99%;
 }
 
 #edition .box_edit .vertalign {
 	display: block;
 	width 2px;
-	height: 10%;
+	height: 23%;
 }
 
 #edition .box_edit .color-box {
@@ -239,7 +240,7 @@ body {
 	margin-left: 12px;
 }
 
-input[type="text"] {
+#googleBar input[type="text"] {
 	display: inline-block;
 	margin: 0;
 	width: 30%;
