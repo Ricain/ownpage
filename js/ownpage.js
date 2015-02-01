@@ -20,7 +20,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 $ownpage = {
-	version: [2,2,'stable'],
+	version: [2,3,"dev"],
 	// Default urls, overwritted when custumized by user.
 	urls : [
 		[
