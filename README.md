@@ -21,7 +21,7 @@ Alternative home page and new tab page for your browser.
 
 ###### Google Chrome
 
-[Install extension](http://goo.gl/hb6333).
+[Install extension](http://goo.gl/hb6333)
 
 - [Source code of extension](https://github.com/ricain/ownpage-chrome)
 
