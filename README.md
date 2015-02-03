@@ -1,5 +1,7 @@
 # Ownpage
 
+*Your own homepage.*
+
 Alternative home page and new tab page for your browser.
 
 [DEMO - TRY IT - USE IT](http://ricain.github.io/ownpage/)
@@ -12,24 +14,22 @@ Alternative home page and new tab page for your browser.
 
 ###### Mozilla Firefox
 
-1. copy and paste `about:config` into the URL bar and press enter. A warning will popup but continue.
-2. edit `browser.startup.homepage` and set it to `http://ricain.github.io/ownpage/`
-3. edit `browser.newtab.url` and set it to `http://ricain.github.io/ownpage/`
-4. close the window and well done!
+[Install add-on](https://addons.mozilla.org/firefox/downloads/file/296834/ownpage-1.1-fx.xpi)
 
-*Note: make sure there is a `/` at the end of the URL.*
+- [Add-on on Mozilla platform](https://addons.mozilla.org/en-US/firefox/addon/ownpage/)
+- [Source code of add-on](https://github.com/Ricain/ownpage-firefox)
 
 ###### Google Chrome
 
-Simply install [owncloud-chrome](http://goo.gl/hb6333).
+[Install extension](http://goo.gl/hb6333).
 
-[Source code](https://github.com/ricain/ownpage-chrome) of the extension.
+- [Source code of extension](https://github.com/ricain/ownpage-chrome)
 
 ###### Safari & IE
 
 For this two navigators you just have to go to your browser's settings where you can edit your home page and your new tab page.
 
-####Source
+#### Source
 
 ```
 $ git clone -b gh-pages https://github.com/ricain/ownpage
@@ -38,7 +38,7 @@ or [download zip](https://github.com/Ricain/ownpage/archive/gh-pages.zip).
 
 Open `index.html` with your favorite browser and make it your home page.
 
-####To do
+#### Roadmap
 
 - [ ] drag and drop to reorgenize boxes in edit mode
 - [ ] a way to export and import links and colors in json
@@ -47,10 +47,10 @@ Open `index.html` with your favorite browser and make it your home page.
 - [ ] new favicon
 - [ ] customizable background color and text color
 
-####Used scripts
+#### Used scripts
 
 [Colpick](http://colpick.com) (GNU GPL license)
 
-####License
+#### License
 
 [GNU GPL v3.0](https://github.com/ricain/ownpage/blob/gh-pages/LICENSE.md)
