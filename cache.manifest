@@ -1,5 +1,7 @@
 CACHE MANIFEST
-# u25
+# u26
+
+CACHE:
 css/colpick.css
 css/owfont-regular.min.css
 css/ownpage.css
@@ -13,3 +15,6 @@ fonts/owfont-regular.svg
 fonts/owfont-regular.ttf
 fonts/owfont-regular.woff
 index.html
+
+NETWORK:
+*
