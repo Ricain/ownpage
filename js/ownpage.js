@@ -1,47 +1,47 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *                                                                             *
- *    Ownpage - Your own homepage.                                             *
- *    Copyright (C) 2014  Jean Mercadier <http://jmercadier.fr>                *
- *                                                                             *
- *    This program is free software: you can redistribute it and/or modify     *
- *    it under the terms of the GNU General Public License as published by     *
- *    the Free Software Foundation, either version 3 of the License, or        *
- *    (at your option) any later version.                                      *
- *                                                                             *
- *    This program is distributed in the hope that it will be useful,          *
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of           *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
- *    GNU General Public License for more details.                             *
- *                                                                             *
- *    You should have received a copy of the GNU General Public License        *
- *    along with this program.  If not, see:                                   *
- *    <https://github.com/Ricain/ownpage/blob/master/LICENSE.md>.              *
- *                                                                             *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+*                                                                             *
+*    Ownpage - Your own homepage.                                             *
+*    Copyright (C) 2014  Jean Mercadier <http://jmercadier.fr>                *
+*                                                                             *
+*    This program is free software: you can redistribute it and/or modify     *
+*    it under the terms of the GNU General Public License as published by     *
+*    the Free Software Foundation, either version 3 of the License, or        *
+*    (at your option) any later version.                                      *
+*                                                                             *
+*    This program is distributed in the hope that it will be useful,          *
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of           *
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
+*    GNU General Public License for more details.                             *
+*                                                                             *
+*    You should have received a copy of the GNU General Public License        *
+*    along with this program.  If not, see:                                   *
+*    <https://github.com/Ricain/ownpage/blob/master/LICENSE.md>.              *
+*                                                                             *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 $ownpage = {
 	version: [2,3,"stable"],
 	// Default urls, overwritted when custumized by user.
-    urls : [
-        [
-            ["Google", "https://www.google.com/", "#3b97e8"],
-            ["Facebook", "https://www.facebook.com/", "#3b5998"],
-            ["GitHub", "https://github.com/", "#171515"],
-            ["YouTube", "https://www.youtube.com/", "#e62117"]
-        ],
-        [
-            ["Odoo", "http://erp-v8.trinaps.com/", "#75526b"],
-            ["Groupware", "https://egw.trinaps.com/", "#308a88"],
-            ["GitLab", "https://gitlab.trinaps.com/", "#fc6d26"],
-            ["Bootstrap", "https://getbootstrap.com/", "#5e4586"]
-        ],
-        [
-            ["Roundcube", "https://ssl0.ovh.net/roundcube", "#20b8fb"],
-            ["Outlook", "https://outlook.live.com/owa/", "#1673ba"],
-            ["OVH", "https://www.ovh.com/", "#113f6d"],
-            ["Kimsufi", "https://www.kimsufi.com/", "#40679a"]
-        ]
-    ],
+	urls : [
+		[
+			["Google", "https://www.google.com/", "#3b97e8"],
+			["Facebook", "https://www.facebook.com/", "#3b5998"],
+			["GitHub", "https://github.com/", "#171515"],
+			["YouTube", "https://www.youtube.com/", "#e62117"]
+		],
+		[
+			["Odoo", "http://erp-v8.trinaps.com/", "#75526b"],
+			["Groupware", "https://egw.trinaps.com/", "#308a88"],
+			["GitLab", "https://gitlab.trinaps.com/", "#fc6d26"],
+			["Bootstrap", "https://getbootstrap.com/", "#5e4586"]
+		],
+		[
+			["Roundcube", "https://ssl0.ovh.net/roundcube", "#20b8fb"],
+			["Outlook", "https://outlook.live.com/owa/", "#1673ba"],
+			["OVH", "https://www.ovh.com/", "#113f6d"],
+			["Kimsufi", "https://www.kimsufi.com/", "#40679a"]
+		]
+	],
 	settings : {
 		searchbar : [true, "show Google searh bar"]
 	},
@@ -72,7 +72,7 @@ $ownpage = {
 		if ($ownpage.version[2] != "stable") $dev = $ownpage.version[2];
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage " + $dev + "</a></ul>").appendTo("body");
 		$("<div id='meteo'></div><div id='date'>").appendTo("body");
-        $("#marquespages").hide();
+		$("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
 	},
@@ -372,34 +372,34 @@ $ownpage = {
 		$ownpage.stat();
 		$(window).resize($ownpage.resize);
 	},
-    refresh_time : function () {
-        var date = new Date();
-        var options_1 = {
-            weekday: 'long', day: 'numeric', month: 'long'
-        };
-        var options_2 = {
-            hour: '2-digit', minute: '2-digit', second: '2-digit'
-        };
-        $("#date").text(date.toLocaleString('fr-FR', options_1)+' '+date.toLocaleString('fr-FR', options_2));
-    },
-    refresh_meteo : function () {
-        if (!$ownpage.config) {
-            $.getJSON('config.json', function (config) {
-                $ownpage.config = config;
-                $ownpage.refresh_meteo();
-            });
-        }
-        else {
-            var url = 'http://api.openweathermap.org/data/2.5/weather';
-            url += '?'+$.param({q: $ownpage.config.city, appid: $ownpage.config.appid});
-            $.getJSON(url, function (data) {
-                $("#meteo").empty()
-                    .append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
-                    .append(data.name+'<br />')
-                    .append((data.main.temp - 273.15).toFixed(1)+' °C');
-            });
-        }
-    }
+	refresh_time : function () {
+		var date = new Date();
+		var options_1 = {
+			weekday: 'long', day: 'numeric', month: 'long'
+		};
+		var options_2 = {
+			hour: '2-digit', minute: '2-digit', second: '2-digit'
+		};
+		$("#date").text(date.toLocaleString('fr-FR', options_1)+' '+date.toLocaleString('fr-FR', options_2));
+	},
+	refresh_meteo : function () {
+		if (!$ownpage.config) {
+			$.getJSON('config.json', function (config) {
+				$ownpage.config = config;
+				$ownpage.refresh_meteo();
+			});
+		}
+		else {
+			var url = 'http://api.openweathermap.org/data/2.5/weather';
+			url += '?'+$.param({q: $ownpage.config.city, appid: $ownpage.config.appid});
+			$.getJSON(url, function (data) {
+				$("#meteo").empty()
+				.append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
+				.append(data.name+'<br />')
+				.append((data.main.temp - 273.15).toFixed(1)+' °C');
+			});
+		}
+	}
 };
 
 $(document).ready(function () {
@@ -414,12 +414,12 @@ $(document).ready(function () {
 		return;
 	}
 	$ownpage.init();
-    $ownpage.refresh_time();
-    setInterval(function () {
-        $ownpage.refresh_time();
-    }, 500);
-    $ownpage.refresh_meteo();
-    setInterval(function () {
-        $ownpage.refresh_meteo();
-    }, 5000);
+	$ownpage.refresh_time();
+	setInterval(function () {
+		$ownpage.refresh_time();
+	}, 500);
+	$ownpage.refresh_meteo();
+	setInterval(function () {
+		$ownpage.refresh_meteo();
+	}, 5000);
 });
