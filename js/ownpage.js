@@ -413,8 +413,8 @@ $ownpage = {
 		openweathermap_appid : "21778990cf307bdeef8a534c9d444716",
 		refresh : function () {
 			if (!$ownpage.settings.weather[0]) return;
-			$ownpage.weather.api_url += '?'+$.param({q: $ownpage.settings.city[0], appid: $ownpage.weather.openweathermap_appid});
-			$.getJSON($ownpage.weather.api_url, function (data) {
+			var url = $ownpage.weather.api_url + '?' + $.param({q: $ownpage.settings.city[0], appid: $ownpage.weather.openweathermap_appid});
+			$.getJSON(url, function (data) {
 				$("#meteo").empty();
 				$("#meteo").append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>');
 				$("#meteo").append(data.name+'<br />');
