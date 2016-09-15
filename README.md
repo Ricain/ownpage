@@ -6,7 +6,7 @@ Alternative home page and new tab page for your browser.
 
 [DEMO - TRY IT - USE IT](http://ricain.github.io/ownpage/)
 
-![example](media/images/example.png)
+![example](images/example.png)
 
 ####Install
 
