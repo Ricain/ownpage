@@ -21,7 +21,6 @@
 
 $ownpage = {
 	version: [2,4,"dev"],
-	openweathermap_appid : "21778990cf307bdeef8a534c9d444716",
 	// Default urls, overwritted when custumized by user.
 	urls : [
 		[
@@ -67,7 +66,6 @@ $ownpage = {
 		$dev  = "";
 		if ($ownpage.version[2] != "stable") $dev = $ownpage.version[2];
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage " + $dev + "</a></ul>").appendTo("body");
-		$("<div id='meteo'></div><div id='date'>").appendTo("body");
 		$("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
@@ -121,6 +119,11 @@ $ownpage = {
 			$("#marquespages").hide();
 			$ownpage.edit();
 		});
+		if ($ownpage.settings.weather[0]) {
+			$("<div id='meteo'></div>").appendTo("body");
+			$ownpage.weather.refresh();
+		}
+		if ($ownpage.settings.datetime[0]) $("<div id='date'></div>").appendTo("body");
 		$ownpage.resize();
 		$ownpage.search.focus();
 	},
@@ -161,6 +164,8 @@ $ownpage = {
 	},
 	// Build the edit view.
 	edit : function (){
+		$("#meteo").remove();
+		$("#date").remove();
 		$("#edition").empty();
 		$ownpage.preference.show();
 		$("#edition").show();
@@ -379,20 +384,17 @@ $ownpage = {
 		$ownpage.setautorefresh();
 	},
 	setautorefresh : function () {
-		if ($ownpage.settings.datetime[0]) {
+		$ownpage.refresh_time();
+		setInterval(function () {
 			$ownpage.refresh_time();
-			setInterval(function () {
-				$ownpage.refresh_time();
-			}, 500);
-		}
-		if ($ownpage.settings.weather[0]) {
-			$ownpage.refresh_meteo();
-			setInterval(function () {
-				$ownpage.refresh_meteo();
-			}, 5000);
-		}
+		}, 500);
+		$ownpage.weather.refresh();
+		setInterval(function () {
+			$ownpage.weather.refresh();
+		}, 10000);
 	},
 	refresh_time : function () {
+		if (!$ownpage.settings.datetime[0]) return;
 		var date = new Date();
 		var options_1 = {
 			weekday: 'long', day: 'numeric', month: 'long'
@@ -406,15 +408,19 @@ $ownpage = {
 		$("#date").append("<br />");
 		$("#date").append(date.toLocaleString(lang, options_2));
 	},
-	refresh_meteo : function () {
-		var url = 'http://api.openweathermap.org/data/2.5/weather';
-		url += '?'+$.param({q: $ownpage.settings.city[0], appid: $ownpage.openweathermap_appid});
-		$.getJSON(url, function (data) {
-			$("#meteo").empty()
-			.append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
-			.append(data.name+'<br />')
-			.append((data.main.temp - 273.15).toFixed(1)+' °C');
-		});
+	weather : {
+		api_url : 'http://api.openweathermap.org/data/2.5/weather',
+		openweathermap_appid : "21778990cf307bdeef8a534c9d444716",
+		refresh : function () {
+			if (!$ownpage.settings.weather[0]) return;
+			$ownpage.weather.api_url += '?'+$.param({q: $ownpage.settings.city[0], appid: $ownpage.weather.openweathermap_appid});
+			$.getJSON($ownpage.weather.api_url, function (data) {
+				$("#meteo").empty();
+				$("#meteo").append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>');
+				$("#meteo").append(data.name+'<br />');
+				$("#meteo").append((data.main.temp - 273.15).toFixed(1)+' °C');
+			});
+		}
 	}
 };
 
