@@ -20,32 +20,28 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 $ownpage = {
-	version: [2,3,"stable"],
+	version: [2,4,"dev"],
+	openweathermap_appid : "21778990cf307bdeef8a534c9d444716",
 	// Default urls, overwritted when custumized by user.
 	urls : [
 		[
-			["Google", "https://www.google.com/", "#3b97e8"],
-			["Facebook", "https://www.facebook.com/", "#3b5998"],
-			["GitHub", "https://github.com/", "#171515"],
-			["YouTube", "https://www.youtube.com/", "#e62117"]
+			["Google",    "https://www.google.com/",   "#3b97e8"],
+			["GitHub",    "https://github.com/",       "#e6a100"],
+			["Twitter",   "https://twitter.com/",      "#465ca6"]
 		],
 		[
-			["Odoo", "http://erp-v8.trinaps.com/", "#75526b"],
-			["Groupware", "https://egw.trinaps.com/", "#308a88"],
-			["GitLab", "https://gitlab.trinaps.com/", "#fc6d26"],
-			["Bootstrap", "https://getbootstrap.com/", "#5e4586"]
-		],
-		[
-			["Roundcube", "https://ssl0.ovh.net/roundcube", "#20b8fb"],
-			["Outlook", "https://outlook.live.com/owa/", "#1673ba"],
-			["OVH", "https://www.ovh.com/", "#113f6d"],
-			["Kimsufi", "https://www.kimsufi.com/", "#40679a"]
+			["Owncloud",  "https://owncloud.org/",     "#c91271"],
+			["Selfoss",   "http://selfoss.aditu.de/",  "#44b198"],
+			["YouTube",   "https://www.youtube.com/",  "#c73535"]
 		]
 	],
 	settings : {
-		searchbar : [true, "show Google searh bar"]
+		searchbar : [true, "show Google searh bar"],
+		weather   : [true, "show local weather"],
+		datetime  : [true, "show date and time"],
+		city      : ["Paris", "city of local weather"]
 	},
-	toadd : ["Google", "https://www.google.com/", "#3b97e8"],
+	toadd : ["Ownpage", "https://github.com/Ricain/ownpage", "#363636"],
 	// Mem as memory. Save and load urls from local storage.
 	mem : {
 		load : function () {
@@ -224,13 +220,22 @@ $ownpage = {
 		init : function () {
 			$container = $("<div style='display:none' id='preference'></div>");
 			$.each($ownpage.settings, function ($key, $value) {
-				$checked = "";
-				if ($ownpage.settings[$key][0]) $checked = "checked";
-				$("<input type='checkbox' " + $checked + " id='pref-" + $key + "' />").click(function () {
-					$ownpage.settings[$key][0] = !$ownpage.settings[$key][0];
-					$ownpage.mem.save();
-				}).appendTo($container);
-				$("<label for='pref-" + $key + "'>" + $value[1] + "</label><br />").appendTo($container);
+				if ($ownpage.settings[$key][0] === true || $ownpage.settings[$key][0] === false) {
+					$checked = "";
+					if ($ownpage.settings[$key][0]) $checked = "checked";
+					$("<input type='checkbox' " + $checked + " id='pref-" + $key + "' />").click(function () {
+						$ownpage.settings[$key][0] = !$ownpage.settings[$key][0];
+						$ownpage.mem.save();
+					}).appendTo($container);
+					$("<label for='pref-" + $key + "'>" + $value[1] + "</label><br />").appendTo($container);
+				}
+				else {
+					$("<input type='text' id='pref-" + $key + "' value='" + $ownpage.settings[$key][0] + "' />").change(function () {
+						$ownpage.settings[$key][0] = $(this).val();
+						$ownpage.mem.save();
+					}).appendTo($container);
+					$("<label for='pref-" + $key + "'>" + $value[1] + "</label><br />").appendTo($container);
+				}
 			});
 			$container.appendTo("body");
 		},
@@ -371,6 +376,21 @@ $ownpage = {
 		$ownpage.draw();
 		$ownpage.stat();
 		$(window).resize($ownpage.resize);
+		$ownpage.setautorefresh();
+	},
+	setautorefresh : function () {
+		if ($ownpage.settings.datetime[0]) {
+			$ownpage.refresh_time();
+			setInterval(function () {
+				$ownpage.refresh_time();
+			}, 500);
+		}
+		if ($ownpage.settings.weather[0]) {
+			$ownpage.refresh_meteo();
+			setInterval(function () {
+				$ownpage.refresh_meteo();
+			}, 5000);
+		}
 	},
 	refresh_time : function () {
 		var date = new Date();
@@ -380,25 +400,21 @@ $ownpage = {
 		var options_2 = {
 			hour: '2-digit', minute: '2-digit', second: '2-digit'
 		};
-		$("#date").text(date.toLocaleString('fr-FR', options_1)+' '+date.toLocaleString('fr-FR', options_2));
+		var lang = window.navigator.userLanguage || window.navigator.language;
+		$("#date").empty();
+		$("#date").append(date.toLocaleString(lang, options_1));
+		$("#date").append("<br />");
+		$("#date").append(date.toLocaleString(lang, options_2));
 	},
 	refresh_meteo : function () {
-		if (!$ownpage.config) {
-			$.getJSON('config.json', function (config) {
-				$ownpage.config = config;
-				$ownpage.refresh_meteo();
-			});
-		}
-		else {
-			var url = 'http://api.openweathermap.org/data/2.5/weather';
-			url += '?'+$.param({q: $ownpage.config.city, appid: $ownpage.config.appid});
-			$.getJSON(url, function (data) {
-				$("#meteo").empty()
-				.append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
-				.append(data.name+'<br />')
-				.append((data.main.temp - 273.15).toFixed(1)+' °C');
-			});
-		}
+		var url = 'http://api.openweathermap.org/data/2.5/weather';
+		url += '?'+$.param({q: $ownpage.settings.city[0], appid: $ownpage.openweathermap_appid});
+		$.getJSON(url, function (data) {
+			$("#meteo").empty()
+			.append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
+			.append(data.name+'<br />')
+			.append((data.main.temp - 273.15).toFixed(1)+' °C');
+		});
 	}
 };
 
@@ -414,12 +430,4 @@ $(document).ready(function () {
 		return;
 	}
 	$ownpage.init();
-	$ownpage.refresh_time();
-	setInterval(function () {
-		$ownpage.refresh_time();
-	}, 500);
-	$ownpage.refresh_meteo();
-	setInterval(function () {
-		$ownpage.refresh_meteo();
-	}, 5000);
 });

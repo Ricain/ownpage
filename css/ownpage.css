@@ -264,7 +264,7 @@ body {
 	display: block;
 	position: absolute;
 	width: 100%;
-	top: 5%;
+	top: 1%;
 	font-family: arial;
 	color:#555;
 	text-align: center;
@@ -305,4 +305,5 @@ body {
 	font-size: 1.2em;
 	color: black;
 	letter-spacing: 3px;
+	text-align: center;
 }
