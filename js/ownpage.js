@@ -22,22 +22,30 @@
 $ownpage = {
 	version: [2,3,"stable"],
 	// Default urls, overwritted when custumized by user.
-	urls : [
-		[
-			["Google",    "https://www.google.com/",   "#3b97e8"],
-			["GitHub",    "https://github.com/",       "#e6a100"],
-			["Twitter",   "https://twitter.com/",      "#465ca6"]
-		],
-		[
-			["Owncloud",  "https://owncloud.org/",     "#c91271"],
-			["Selfoss",   "http://selfoss.aditu.de/",  "#44b198"],
-			["YouTube",   "https://www.youtube.com/",  "#c73535"]
-		]
-	],
+    urls : [
+        [
+            ["Google", "https://www.google.com/", "#3b97e8"],
+            ["Facebook", "https://www.facebook.com/", "#3b5998"],
+            ["GitHub", "https://github.com/", "#171515"],
+            ["YouTube", "https://www.youtube.com/", "#e62117"]
+        ],
+        [
+            ["Odoo", "http://erp-v8.trinaps.com/", "#75526b"],
+            ["Groupware", "https://egw.trinaps.com/", "#308a88"],
+            ["GitLab", "https://gitlab.trinaps.com/", "#fc6d26"],
+            ["Bootstrap", "https://getbootstrap.com/", "#5e4586"]
+        ],
+        [
+            ["Roundcube", "https://ssl0.ovh.net/roundcube", "#20b8fb"],
+            ["Outlook", "https://outlook.live.com/owa/", "#1673ba"],
+            ["OVH", "https://www.ovh.com/", "#113f6d"],
+            ["Kimsufi", "https://www.kimsufi.com/", "#40679a"]
+        ]
+    ],
 	settings : {
 		searchbar : [true, "show Google searh bar"]
 	},
-	toadd : ["Ownpage", "https://github.com/Ricain/ownpage", "#363636"],
+	toadd : ["Google", "https://www.google.com/", "#3b97e8"],
 	// Mem as memory. Save and load urls from local storage.
 	mem : {
 		load : function () {
@@ -63,7 +71,8 @@ $ownpage = {
 		$dev  = "";
 		if ($ownpage.version[2] != "stable") $dev = $ownpage.version[2];
 		$("<div id='edit'></div><ul id='extra' class='extra'><a id='ownpage' href='https://github.com/Ricain/ownpage'>Ownpage " + $dev + "</a></ul>").appendTo("body");
-		$("#marquespages").hide();
+		$("<div id='meteo'></div><div id='date'>").appendTo("body");
+        $("#marquespages").hide();
 		$ownpage.box.editor.hide();
 		$("#edition").hide();
 	},
@@ -362,7 +371,35 @@ $ownpage = {
 		$ownpage.draw();
 		$ownpage.stat();
 		$(window).resize($ownpage.resize);
-	}
+	},
+    refresh_time : function () {
+        var date = new Date();
+        var options_1 = {
+            weekday: 'long', day: 'numeric', month: 'long'
+        };
+        var options_2 = {
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+        };
+        $("#date").text(date.toLocaleString('fr-FR', options_1)+' '+date.toLocaleString('fr-FR', options_2));
+    },
+    refresh_meteo : function () {
+        if (!$ownpage.config) {
+            $.getJSON('config.json', function (config) {
+                $ownpage.config = config;
+                $ownpage.refresh_meteo();
+            });
+        }
+        else {
+            var url = 'http://api.openweathermap.org/data/2.5/weather';
+            url += '?'+$.param({q: $ownpage.config.city, appid: $ownpage.config.appid});
+            $.getJSON(url, function (data) {
+                $("#meteo").empty()
+                    .append('<i class="owf owf-pull-left owf-'+data.weather[0].id+'"></i>')
+                    .append(data.name+'<br />')
+                    .append((data.main.temp - 273.15).toFixed(1)+' °C');
+            });
+        }
+    }
 };
 
 $(document).ready(function () {
@@ -377,4 +414,12 @@ $(document).ready(function () {
 		return;
 	}
 	$ownpage.init();
+    $ownpage.refresh_time();
+    setInterval(function () {
+        $ownpage.refresh_time();
+    }, 500);
+    $ownpage.refresh_meteo();
+    setInterval(function () {
+        $ownpage.refresh_meteo();
+    }, 5000);
 });
