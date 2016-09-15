@@ -1,9 +1,15 @@
 CACHE MANIFEST
-# u22
+# u25
 css/colpick.css
+css/owfont-regular.min.css
 css/ownpage.css
 js/jquery.min.js
 js/ownpage.js
 js/colpick.js
-media/fonts/helvetica-neue.woff
+fonts/helvetica-neue.woff
+fonts/owfont-regular.eot
+fonts/owfont-regular.otf
+fonts/owfont-regular.svg
+fonts/owfont-regular.ttf
+fonts/owfont-regular.woff
 index.html
